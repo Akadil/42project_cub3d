@@ -14,10 +14,13 @@
 
 int main(int argc, char **argv)
 {
-    t_data	*data;
+    t_data	data;
 
 	data = NULL;
-	ft_parsing(argc, argv, data);
+	ft_parsing(argc, **argv);
+	init_game(&data, argv[1]);
+//	if (!valid_file(&data, argv[1]))
+//		exit_game(&data);
 	mlx_loop_hook(data->mlx_ptr, &ft_rendering, data);
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &ft_handle_keypress, data);
 	mlx_hook(data->win_ptr, DestroyNotify, 0, &ft_handle_exit, data);
