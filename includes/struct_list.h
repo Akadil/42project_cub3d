@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_main.c                                          :+:      :+:    :+:   */
+/*   struct_list.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 20:14:59 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/01 14:05:35 by akalimol         ###   ########.fr       */
+/*   Created: 2023/05/09 17:29:34 by akadilkalim       #+#    #+#             */
+/*   Updated: 2023/06/28 14:19:44 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_main.h"
+#ifndef STRUCT_LIST_H
+# define STRUCT_LIST_H
 
-int main(int argc, char **argv)
+typedef struct s_list
 {
-    t_data	*data;
+	void			*content;
+	int				type;
+	struct s_list	*next;
+	struct s_list	*prev;
+}					t_list;
 
-	data = NULL;
-	ft_parsing(argc, argv, data);
-	mlx_loop_hook(data->mlx_ptr, &ft_rendering, data);
-	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &ft_handle_keypress, data);
-	mlx_hook(data->win_ptr, DestroyNotify, 0, &ft_handle_exit, data);
-	mlx_loop(data->mlx_ptr);
-	ft_clean(data);
-    return (0);
-}
+#endif
