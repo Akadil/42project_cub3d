@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 10:43:56 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/03 11:10:41 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/03 11:47:15 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 int		ft_parsing_args(int argc, char **argv, t_list **rows);
 t_list	*ft_get_map_rows(t_list **rows);
-int		ft_parsing_textures(t_list *rows);
+int		ft_parsing_textures(t_list *rows, t_data *data);
 int		ft_parsing_map(t_list *rows);
 
 #endif

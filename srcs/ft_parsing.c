@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:06:51 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/03 11:09:11 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/03 11:47:25 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void    ft_parsing(int argc, char **argv, t_data *data)
 
     /*  Parse the texture   */
     /*  -----------------   */
-    result = ft_parsing_textures(rows);
+    result = ft_parsing_textures(rows, data);
     if (result != 0)
         ft_error("Error!\n", result);
     
