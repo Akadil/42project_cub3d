@@ -6,132 +6,41 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:06:51 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/01 14:48:16 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/03 11:09:11 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct_data.h"
-#include "struct_list.h"
+#include "parsing/includes/ft_parsing.h"
 
-typedef struct s_wall
-{
-    void    *north;
-    void    *south;
-    void    *west;
-    void    *east;
-    void    *floor;
-    void    *ceil;
-}   t_wall;
-
+/*  Parse and check the inputs, files, maps */
 void    ft_parsing(int argc, char **argv, t_data *data)
 {
     t_list  *rows;
-    int     fd;
-
-    fd = ft_parsing_args(argc, argv);
-    rows = ft_get_rows(fd);
-    ft_parse_textures(rows);
-
-    ft_get_textures();
-    ft_parse_textures();
-    ft_parse_map();
-}
-
-/*  Functions to write  */
-
-/**
- * @brief       Check the arguments and file existence
- * 
- * @details     The name of the file (argv[1]) could be wrongly formatted. Check
- *              for proper name. check if it exists, and return fd (int) value 
- *              if exists 
- * 
- * @return int  -   if everything is ok, return fd of the file
- */
-int	ft_parsing_args(int argc, char **argv)
-{
-	int fd;
-    
-    if (argc == 1)
-	{
-		ft_printf("No args.\n");
-		exit (-1);
-	}
-	if (argc > 2)
-		ft_printf("Only the first file would be used.\n");
-	if (!(argv[1][i - 4] == '.' && argv[1][i - 3] == 'c'\
-		&& argv[1][i - 2] == 'u' && argv[1][i - 1] == 'b'))
-	{
-		ft_printf("Map should be a .cub file.\n");
-		exit (-1);
-	}
-    fd = open(argv[1], O_RDONLY);
-	if (fd < -1)
-		ft_printf("Can't open the file.\n");
-    return (fd);
-}
-
-#include "libft.h"
-
-/* Result:  all cleared rows */
-void    ft_get_rows(int fd)
-{
-    t_list  *rows;
-    t_list  *row;
-    char    *str;
+    t_list  *rows_map;
+    int     result;
 
     rows = NULL;
-    str = get_next_line(fd);
-    while (str)
-    {
-        if (ft_strcmp(str, "\n") != 0)
-        {
-            row = ft_lstnew(str);
-            if (!row)
-                printf("do something");
-            ft_lstadd_back(&rows, row);
-        }
-        else
-            free(str);
-        str = get_next_line(fd);
-    }
-    return (rows);
-}
 
-/*  */
-void    ft_parse_textures(t_list *rows);
-{
-    t_wall  *wall;
-    t_list  *row;
-    char    **img_info;
+    /*  Parse the arguments and get the rows as a linked list   */
+    /*  -----------------------------------------------------   */
+    result = ft_parsing_args(argc, argv, &rows);
+    if (result != 0)
+        ft_error("Error!\n", result);
 
-    row = rows;
-    while (row)
-    {
-        img_info = ft_split(row->content);
-        
-        /*  Two basics tests    */
-        if (!img_info)
-            printf("Error!");
-        if (ft_strlen_alt(img_info) != 2)
-            printf("Error!");
+    /*  Get rows of map and unlink from the beginning   */
+    rows_map = ft_get_map_rows(&rows);
+    if (rows_map != 0)
+        ft_error("Error!\n", -1);
 
-        /*  Allocate  */
-        if (ft_strcmp(img_info[0], "NO") == 0)
-            wall->north = img_info[1];
-        else if (ft_strcmp(img_info[0], "SO") == 0)
-            wall->south = img_info[1];
-        else if (ft_strcmp(img_info[0], "WE") == 0)
-            wall->west = img_info[1];
-        else if (ft_strcmp(img_info[0], "EA") == 0)
-            wall->east = img_info[1];
-        else if (ft_strcmp(img_info[0], "F") == 0)
-            wall->floor = img_info[1];
-        else if (ft_strcmp(img_info[0], "C") == 0)
-            wall->ceil = img_info[1];
-        else
-            printf("Wrong map coordinates!\n");         // Clean if wrong
-        row = row->next;
-    }
-    return (wall);
-}
+    /*  Parse the texture   */
+    /*  -----------------   */
+    result = ft_parsing_textures(rows);
+    if (result != 0)
+        ft_error("Error!\n", result);
+    
+    /*  Parse the map   */
+    /*  -------------   */
+    result = ft_parsing_map(rows_map);
+    if (result != 0)
+        ft_error("Error!\n", result);
+}   
