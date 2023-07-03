@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:19:18 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/03 10:50:34 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/03 12:45:39 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,25 @@
 /*  Our main data   */
 typedef struct s_data
 {
-    void    *mlx_ptr;
-    void    *win_ptr;
-	t_wall	*wall;
-	char	**map;
-}   t_data;
+    t_mlx		*mlx;
+	t_wall		*wall;
+	char		**map;
+	t_player	*player;
+}   			t_data;
+
+typedef struct s_mlx
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+}			t_mlx;
+
+
+typedef struct s_player
+{
+	int	x;
+	int	y;
+	int	a;
+}	t_player;
 
 typedef struct s_wall
 {

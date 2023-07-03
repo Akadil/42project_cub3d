@@ -1,0 +1,4 @@
+test_akadil/
+.vscode/
+libft/libft.a
+libft/.build/*

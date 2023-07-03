@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 10:45:52 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/03 12:29:55 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/03 12:37:23 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ int ft_parsing_textures(t_list *rows, t_data *data)
     if (ft_check_file_existence(rows) != 0)
         return (0);
     ft_get_filenames_inside_data(rows, data);
+
+    /*  free the data after */
+    ft_free_rows(rows);
 }
 
 /**
@@ -77,7 +80,11 @@ int ft_check_file_existence(t_list **rows);
 void    ft_get_filenames_inside_data(t_list *rows, t_data *data);
 
 
-
+/**
+ * @brief   as we already parsing everything, we have to free the list rows
+ * 
+ */
+void    ft_free_rows(t_list *rows);
 
 
 
