@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:19:18 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/03 12:45:39 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/04 10:50:45 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,32 +16,35 @@
 /*  Our main data   */
 typedef struct s_data
 {
-    t_mlx		*mlx;
-	t_wall		*wall;
+	/*	Access to mlx instances*/
+	void		*mlx_ptr;
+	void		*win_ptr;
+	t_img		img_win;
+	t_img		img_minimap;
+
+	/*	The map	*/
 	char		**map;
-	t_player	*player;
+
+	/*	Wall textures	*/
+	t_wall		*wall;
+
+	t_position	*player;
+	t_position	*ray;
 }   			t_data;
 
-typedef struct s_mlx
-{
-	void	*mlx_ptr;
-	void	*win_ptr;
-}			t_mlx;
-
-
-typedef struct s_player
+typedef struct s_position
 {
 	int	x;
 	int	y;
 	int	a;
-}	t_player;
+}	t_position;
 
 typedef struct s_wall
 {
-    void    *north;
-    void    *south;
-    void    *west;
-    void    *east;
+    t_img    *north;
+    t_img    *south;
+    t_img    *west;
+    t_img    *east;
     void    *floor;
     void    *ceil;
 }   t_wall;
