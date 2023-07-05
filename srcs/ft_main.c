@@ -6,12 +6,22 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:14:59 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/05 11:29:44 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/05 18:55:24 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_main.h"
 #include "struct_data.h"
+
+int	ft_handle_keypress(int keysym, t_data *data)
+{
+	if (keysym == XK_Escape)
+	{
+		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+		data->win_ptr = NULL;
+	}
+	return (0);
+}
 
 int main(int argc, char **argv)
 {
@@ -27,7 +37,7 @@ int main(int argc, char **argv)
 
 	/*	Start rendering	*/
 	mlx_loop_hook(data.mlx_ptr, &ft_rendering, &data);
-	// mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &ft_handle_keypress, data);
+	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &ft_handle_keypress, &data);
 	// mlx_hook(data.win_ptr, DestroyNotify, 0, &ft_handle_exit, data);
 	mlx_loop(data.mlx_ptr);
 	

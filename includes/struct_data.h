@@ -6,15 +6,15 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:19:18 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/05 11:55:15 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/05 18:57:17 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_DATA_H
 # define STRUCT_DATA_H
 
-# define WINDOW_HEIGHT 1080
-# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 480
+# define WINDOW_WIDTH 640
 
 
 typedef struct s_position

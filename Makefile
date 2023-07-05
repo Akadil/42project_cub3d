@@ -1,12 +1,15 @@
-NAME			= fdf
+NAME			= cub3d
 LIBFT			= libft.a
 MLX				= libmlx_Linux.a
 
-SRCS            =	main.c
+SRCS            =	ft_main.c \
+					ft_parsing_akadil.c \
+					ft_rendering.c \
+					rendering/ft_render_projection.c
 
 SRCS_DIR		= ./srcs
 BUILD_DIR       = ./.build
-INCLUDES_DIR	= ./headers
+INCLUDES_DIR	= ./includes
 LIBFT_DIR		= ./libft
 MLX_DIR			= ./mlx_linux
 
@@ -21,10 +24,10 @@ HFLAGS			= -I $(INCLUDES_DIR) -I $(MLX_DIR)
 all						: ${NAME}
 
 ${NAME}         		: ${OBJS}
-			${CC} -g $(OBJS) -o $(NAME) -Lmlx_linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz -Llibft -lft  
+			${CC} $(OBJS) -o $(NAME) -Lmlx_linux -lmlx_Linux -lXext -lX11 -lm -lz -Llibft -lft  
 
 ${BUILD_DIR}/%.o		: $(SRCS_DIR)/%.c $(LIBFT_DIR)/$(LIBFT) $(MLX_DIR)/$(MLX)
-			${CC} $(HFLAGS) ${CFLAGS} -O3 -c $< -o $@ 
+			${CC} -g3 $(HFLAGS) ${CFLAGS} -O3 -c $< -o $@ 
 
 $(LIBFT_DIR)/$(LIBFT)	:
 			make -C $(LIBFT_DIR)
