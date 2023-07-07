@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:14:59 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/07 12:25:52 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/07 15:31:22 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,49 @@ int	ft_handle_keypress(int keysym, t_data *data)
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 		data->win_ptr = NULL;
 	}
-	else if (keysym == 'd')
+	else if (keysym == 'j')
 	{
-		if (data->player.a == 350)
-			data->player.a = 0;
+		if (data->angle == 355)
+			data->angle = 0;
 		else
-			data->player.a += 1;
+			data->angle += 5;
 	}
-	else if (keysym == 'a')
+	else if (keysym == 'h')
 	{
-		if (data->player.a == 0)
-			data->player.a = 359;
+		if (data->angle == 0)
+			data->angle = 355;
 		else
-			data->player.a -= 1;
+			data->angle -= 5;
 	}
 	else if (keysym == 'w')
-	{
-		if (data->map[])
-	}
+    {
+		if(data->map[(int)(data->player.y)][(int)(data->player.x + data->view.dir.x * 0.05)] != '1') 
+			data->player.x = data->player.x + data->view.dir.x * 0.05;
+		if(data->map[(int)(data->player.y + data->view.dir.y * 0.05)][(int)(data->player.x)] != '1') 
+			data->player.y += data->view.dir.y * 0.05;
+    }
+    //move backwards if no wall behind you
+    else if (keysym == 's')
+    {
+		if(data->map[(int)(data->player.y)][(int)(data->player.x - data->view.dir.x * 0.05)] != '1') 
+			data->player.x -= data->view.dir.x * 0.05;
+		if(data->map[(int)(data->player.y - data->view.dir.y * 0.05)][(int)(data->player.x)] != '1') 
+			data->player.y -= data->view.dir.y * 0.05;
+    }
+	else if (keysym == 'a')
+    {
+		if(data->map[(int)(data->player.y)][(int)(data->player.x - data->view.plane.x * 0.1)] != '1') 
+			data->player.x -= data->view.plane.x * 0.1;
+		if(data->map[(int)(data->player.y - data->view.plane.y * 0.1)][(int)(data->player.x)] != '1') 
+			data->player.y -= data->view.plane.y * 0.1;
+    }
+	else if (keysym == 'd')
+    {
+		if(data->map[(int)(data->player.y)][(int)(data->player.x + data->view.plane.x * 0.1)] != '1') 
+			data->player.x += data->view.plane.x * 0.1;
+		if(data->map[(int)(data->player.y + data->view.plane.y * 0.1)][(int)(data->player.x)] != '1') 
+			data->player.y += data->view.plane.y * 0.1;
+    }
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:40:25 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/07 11:47:15 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/07 12:40:00 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void    ft_parsing_akadil(int argc, char **argv, t_data *data)
             {
                 data->player.x = j + 0.5;
                 data->player.y = i + 0.5;
-                data->player.a = 300.0;
+                data->angle = 300.0;
                 checker = 1;
             }
             j++;

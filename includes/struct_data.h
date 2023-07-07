@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:19:18 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/07 12:28:00 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/07 12:39:52 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@
 # define WINDOW_HEIGHT 480
 # define WINDOW_WIDTH 640
 
-
-typedef struct s_position
+typedef struct s_vector
 {
-	float	x;
-	float	y;
-	float	a;
-}	t_position;
+    double  x;
+    double  y;
+}   t_vector;
 
 typedef struct s_img
 {
@@ -43,6 +41,12 @@ typedef struct s_wall
     void    *ceil;
 }   t_wall;
 
+typedef struct s_view
+{
+    t_vector    dir;
+    t_vector    plane;   
+}       t_view;
+
 /*  Our main data   */
 typedef struct s_data
 {
@@ -58,8 +62,9 @@ typedef struct s_data
 	/*	Wall textures	*/
 	t_wall		*wall;
 
-	t_position	player;
-	t_position	ray;
+	t_vector	player;
+	t_view		view;
+	float		angle;
 }   			t_data;
 
 

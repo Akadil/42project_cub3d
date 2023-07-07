@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:52:13 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/07 12:05:42 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/07 13:05:40 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,6 @@
 #include <stdio.h>
 #include <float.h>
 #include <unistd.h>
-
-typedef struct s_vector
-{
-    double  x;
-    double  y;
-}   t_vector;
-
-
-typedef struct s_view
-{
-    t_vector    dir;
-    t_vector    plane;   
-}       t_view;
 
 typedef struct s_ray
 {
@@ -52,15 +39,14 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 void    ft_render_projection(t_data *data)
 {
-    t_view  view;
     t_ray   ray;
     int x;
 
     x = 0;
-    ft_set_direction_vector(data->player.a, &view);     // Move it to previous steps
+    ft_set_direction_vector(data->angle, &data->view);     // Move it to previous steps
     while (x < WINDOW_WIDTH)
     {
-        ft_set_ray_vectors(x, &ray, &view, data);
+        ft_set_ray_vectors(x, &ray, &data->view, data);
         while (data->map[(int)ray.map.y][(int)ray.map.x] != '1')
         {
             if (ray.side_dist.x < ray.side_dist.y)
