@@ -6,120 +6,175 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:52:13 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/05 19:01:44 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/07 12:05:42 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct_data.h"
 
-#define SMTH 0.1
+#define PI 3.14
 
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <float.h>
+#include <unistd.h>
+
+typedef struct s_vector
+{
+    double  x;
+    double  y;
+}   t_vector;
+
+
+typedef struct s_view
+{
+    t_vector    dir;
+    t_vector    plane;   
+}       t_view;
+
+typedef struct s_ray
+{
+    t_vector    dir;    // Or change it to pos
+    t_vector    map;
+    t_vector    delta_dist;
+    t_vector    side_dist;
+    t_vector    step;
+    int         side;
+    double      distance_perp;
+}   t_ray;
+
+double  ft_find_dist_perp(t_ray ray);
+void    ft_set_ray_vectors(int x, t_ray *ray, t_view *view, t_data *data);
+void    ft_set_direction_vector(float angle, t_view  *view);
+void    ft_draw_column(int x, t_ray ray, t_data *data);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 void    ft_render_projection(t_data *data)
 {
-    double dirX = -1;
-    double dirY = 0;
-    double planeX = 0;
-    double planeY = 0.66; //the 2d raycaster version of camera plane
-
-    // double time = 0; //time of current frame
-    // double oldTime = 0;
-    int stepX;
-    int stepY;
-    double cameraX;
-    double rayDirX;
-    double rayDirY;
-    int mapX;
-    int mapY;
-    double sideDistX;
-    double sideDistY;
-
-        //length of ray from one x or y-side to next x or y-side
-    double deltaDistx;
-    double deltaDistY;
-    double perpWallDist;
-    int side; //was a NS or a EW wall hit?
-
+    t_view  view;
+    t_ray   ray;
     int x;
 
     x = 0;
+    ft_set_direction_vector(data->player.a, &view);     // Move it to previous steps
     while (x < WINDOW_WIDTH)
     {
-      //calculate ray position and direction
-        cameraX = 2 * x / (double)WINDOW_WIDTH - 1;
-      
-        rayDirX = dirX + planeX * cameraX;
-        rayDirY = dirY + planeY * cameraX;
-
-
-        //which box of the map we're in
-        mapX = (int)data->player.x;
-        mapY = (int)data->player.y;
-
-        //length of ray from current position to next x or y-side
-
-
-        /*  identify the deltas */
-        /*  identify which cell to move */
-        if (rayDirX == 0)
-            deltaDistx = 1e30;
-        else
-            deltaDistx = fabs(1 / rayDirX);
-        if (rayDirY == 0)
-            deltaDistY = 1e30;
-        else
-            deltaDistY = fabs(1 / rayDirY);
-        /*  -------------------------------  */
-        if (rayDirX < 0)
+        ft_set_ray_vectors(x, &ray, &view, data);
+        while (data->map[(int)ray.map.y][(int)ray.map.x] != '1')
         {
-            stepX = -1;
-            sideDistX = (data->player.x - mapX) * deltaDistx;
-        }
-        else
-        {
-            stepX = 1;
-            sideDistX = (mapX + 1.0 - data->player.x) * deltaDistx;
-        }
-        if (rayDirY < 0)
-        {
-            stepY = -1;
-            sideDistY = (data->player.y - mapY) * deltaDistY;
-        }
-        else
-        {
-            stepY = 1;
-            sideDistY = (mapY + 1.0 - data->player.y) * deltaDistY;
-        }
-
-
-
-
-        /*  Find where the wall was hitten  */
-        while (data->map[mapY][mapX] == 0)
-        {
-            if (sideDistX < sideDistY)
+            if (ray.side_dist.x < ray.side_dist.y)
             {
-                sideDistX += deltaDistx;
-                mapX += stepX;
-                side = 0;
+                ray.side_dist.x += ray.delta_dist.x;
+                ray.map.x += ray.step.x;
+                ray.side = 0;
             }
             else
             {
-                sideDistY += deltaDistY;
-                mapY += stepY;
-                side = 1;
+                ray.side_dist.y += ray.delta_dist.y;
+                ray.map.y += ray.step.y;
+                ray.side = 1;
             }
         }
-
-        if(side == 0) 
-            perpWallDist = (sideDistX - deltaDistx);
-        else
-            perpWallDist = (sideDistY - deltaDistY);
-
-        printf("%lf\n", perpWallDist);
+        ray.distance_perp = ft_find_dist_perp(ray);
+        ft_draw_column(x, ray, data);
+        // printf("%lf\n", ray.distance_perp);
+        // usleep(2000);
         x++;
     }
+    // printf("=======================================================================\n");
+    // printf("=======================================================================\n");
+}
+
+void    ft_draw_column(int x, t_ray ray, t_data *data)
+{
+    int lineHeight;
+    int draw_start;
+    int draw_end;
+
+    lineHeight = (int)(WINDOW_HEIGHT / ray.distance_perp);
+    draw_start = -lineHeight / 2 + WINDOW_HEIGHT / 2;
+    if (draw_start < 0)
+        draw_start = 0;
+    draw_end = lineHeight / 2 + WINDOW_HEIGHT / 2;
+    if (draw_end >= WINDOW_HEIGHT)
+        draw_end = WINDOW_HEIGHT - 1;
+    while (draw_start < draw_end)
+    {
+        my_mlx_pixel_put(data, x, draw_start, 255);
+        draw_start++;
+    }
+}
+
+double  ft_find_dist_perp(t_ray ray)
+{
+    /*  I think here shouldn't be any substraction. Because I changed the dda algorithm */
+    if (ray.side == 0)
+        return (ray.side_dist.x - ray.delta_dist.x);
+    else
+        return (ray.side_dist.y - ray.delta_dist.y);
+}
+
+/*  These assignments have to be separated, because some of them, static    */
+void    ft_set_ray_vectors(int x, t_ray *ray, t_view *view, t_data *data)
+{
+    double ratio_plane;
+
+    /* The ratio in the plane*/
+    ratio_plane = 2 * x / (double)WINDOW_WIDTH - 1;
+    
+    /*  The direction vector of ray */
+    ray->dir.x = view->dir.x + view->plane.x * ratio_plane;
+    ray->dir.y = view->dir.y + view->plane.y * ratio_plane;
+
+    /*  The location of ray in the cell  */
+    ray->map.x = (int)data->player.x;
+    ray->map.y = (int)data->player.y;
+
+    /*  The distance of delta for a ray  */
+    if (ray->dir.x == 0.0)
+        ray->delta_dist.x = DBL_MAX;
+    else
+        ray->delta_dist.x = fabs(1 / ray->dir.x);
+    if (ray->dir.y == 0.0)
+        ray->delta_dist.y = DBL_MAX;
+    else
+        ray->delta_dist.y = fabs(1 / ray->dir.y);
+    
+    /*  The side steps  */
+    if (ray->dir.x < 0)
+    {
+        ray->side_dist.x = (data->player.x - ray->map.x) * ray->delta_dist.x;
+        ray->step.x = -1;
+    }
+    else
+    {
+        ray->side_dist.x = (ray->map.x + 1.0 - data->player.x) * ray->delta_dist.x;
+        ray->step.x = 1;
+    }
+    
+    if (ray->dir.y < 0)
+    {
+        ray->side_dist.y = (data->player.y - ray->map.y) * ray->delta_dist.y;
+        ray->step.y = -1;
+    }
+    else
+    {
+        ray->side_dist.y = (ray->map.y + 1.0 - data->player.y) * ray->delta_dist.y;
+        ray->step.y = 1;
+    }
+}
+
+
+
+/*  =========================================================     */
+    /*  Maybe this function have to be done in ft_handling  */
+            /*  and variables set in the t_data */
+/*  =========================================================     */
+void    ft_set_direction_vector(float angle, t_view  *view)
+{
+    view->dir.x = cos(angle * PI / 180);
+    view->dir.y = sin(angle * PI / 180);
+    view->plane.x = 0.66 * sin (angle * PI / 180) * -1;
+    view->plane.y = 0.66 * cos (angle * PI / 180);
 }

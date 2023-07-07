@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:31:58 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/05 17:37:01 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/07 11:34:49 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int    ft_rendering(t_data *data)
 {
     if (data->win_ptr == NULL)
         return (1);
-    ft_render_background(data, 33023);
+    ft_render_background(data, 0);
 
     ft_render_projection(data);
     // ft_render_hand(data);
@@ -34,18 +34,27 @@ int    ft_rendering(t_data *data)
     return (0);
 }
 
+int	create_rgb(int r, int g, int b)
+{
+	return (r << 16 | g << 8 | b);
+}
+
 void	ft_render_background(t_data *data, int color)
 {
 	int	i;
 	int	j;
 
 	i = 0;
+	(void)color;
 	while (i < WINDOW_HEIGHT)
 	{
 		j = 0;
 		while (j < WINDOW_WIDTH)
 		{
-			my_mlx_pixel_put(data, j, i, color);
+			if (i > WINDOW_HEIGHT / 2)
+				my_mlx_pixel_put(data, j, i, create_rgb(76, 187, 23));
+			else
+				my_mlx_pixel_put(data, j, i, create_rgb(135, 206, 235));
 			j++;
 		}
 		i++;

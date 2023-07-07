@@ -27,7 +27,7 @@ ${NAME}         		: ${OBJS}
 			${CC} $(OBJS) -o $(NAME) -Lmlx_linux -lmlx_Linux -lXext -lX11 -lm -lz -Llibft -lft  
 
 ${BUILD_DIR}/%.o		: $(SRCS_DIR)/%.c $(LIBFT_DIR)/$(LIBFT) $(MLX_DIR)/$(MLX)
-			${CC} -g3 $(HFLAGS) ${CFLAGS} -O3 -c $< -o $@ 
+			${CC} -g3 $(HFLAGS) ${CFLAGS} -c $< -o $@ 
 
 $(LIBFT_DIR)/$(LIBFT)	:
 			make -C $(LIBFT_DIR)

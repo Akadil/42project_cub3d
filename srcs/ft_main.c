@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:14:59 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/05 18:55:24 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/07 12:25:52 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,24 @@ int	ft_handle_keypress(int keysym, t_data *data)
 	{
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 		data->win_ptr = NULL;
+	}
+	else if (keysym == 'd')
+	{
+		if (data->player.a == 350)
+			data->player.a = 0;
+		else
+			data->player.a += 1;
+	}
+	else if (keysym == 'a')
+	{
+		if (data->player.a == 0)
+			data->player.a = 359;
+		else
+			data->player.a -= 1;
+	}
+	else if (keysym == 'w')
+	{
+		if (data->map[])
 	}
 	return (0);
 }

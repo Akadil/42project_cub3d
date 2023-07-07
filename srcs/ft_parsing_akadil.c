@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:40:25 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/05 11:55:46 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/07 11:47:15 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,21 @@ void    ft_parsing_akadil(int argc, char **argv, t_data *data)
                         /*  Find the player */
     /* ======================================================== */
     int j;
+    int checker;
 
     i = 0;
-    while (map[i])
+    checker = 0;
+    while (map[i] && checker == 0)
     {
         j = 0;
-        while (map[i][j])
+        while (map[i][j] && checker == 0)
         {
-            if (map[i][j] != '1' && map[i][j] != '0' && map[i][j] != ' ')
+            if (map[i][j] != '1' && map[i][j] != '0' && map[i][j] != ' ' && map[i][j] != '\n')
             {
                 data->player.x = j + 0.5;
                 data->player.y = i + 0.5;
-                data->player.a = 0.0;
+                data->player.a = 300.0;
+                checker = 1;
             }
             j++;
         }
