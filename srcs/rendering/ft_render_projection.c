@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:52:13 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/08 15:10:10 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/08 18:42:19 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ void    ft_render_projection(t_data *data)
         }
         ray.distance_perp = ft_find_dist_perp(ray);
         ft_draw_column(x, ray, data);
-        // printf("%lf\n", ray.distance_perp);
-        // usleep(2000);
         x++;
     }
     // printf("=======================================================================\n");
@@ -86,6 +84,12 @@ void    ft_draw_column(int x, t_ray ray, t_data *data)
     int draw_start;
     int draw_end;
 
+    float   ratio_x;
+    float   ratio_y;
+    int     pos_x;
+    int     pos_y;
+    int     pos_color;
+
     lineHeight = (int)(WINDOW_HEIGHT / ray.distance_perp);
     draw_start = -lineHeight / 2 + WINDOW_HEIGHT / 2;
     if (draw_start < 0)
@@ -93,9 +97,34 @@ void    ft_draw_column(int x, t_ray ray, t_data *data)
     draw_end = lineHeight / 2 + WINDOW_HEIGHT / 2;
     if (draw_end >= WINDOW_HEIGHT)
         draw_end = WINDOW_HEIGHT - 1;
+    if (ray.side == 1)                      // upper or lower 
+    {
+        ratio_x = data->player.x + ray.distance_perp * ray.dir.x;
+        ratio_x -= (int)ratio_x;
+        pos_x = (int)((double)data->wall.north.width * ratio_x);
+    }
+    if (ray.side == 0)                      // right or left
+    {
+        ratio_x = data->player.y + ray.distance_perp * ray.dir.y;
+        ratio_x -= (int)ratio_x;
+        pos_x = (int)((double)data->wall.east.width * ratio_x);
+    }
     while (draw_start < draw_end)
     {
-        my_mlx_pixel_put(data, x, draw_start, create_rgb(255, 0, 0));
+        if (ray.side == 1)
+        {
+            ratio_y = (float)(2 * draw_start + lineHeight - WINDOW_HEIGHT) / 2 / lineHeight;
+            pos_y = (int)(data->wall.north.height * ratio_y);
+            pos_color = (float)(pos_y * data->wall.north.line_len) + (pos_x * ((float)data->wall.north.bpp / 8));
+            my_mlx_pixel_put(data, x, draw_start, create_rgb((int)data->wall.north.addr[pos_color], (int)data->wall.north.addr[pos_color + 1], (int)data->wall.north.addr[pos_color + 2])); 
+        }
+        else
+        {
+            ratio_y = (float)(2 * draw_start + lineHeight - WINDOW_HEIGHT) / 2 / lineHeight;
+            pos_y = (int)(data->wall.east.height * ratio_y);
+            pos_color = (float)(pos_y * data->wall.east.line_len) + (pos_x * ((float)data->wall.east.bpp / 8));
+            my_mlx_pixel_put(data, x, draw_start, create_rgb((int)data->wall.east.addr[pos_color], (int)data->wall.east.addr[pos_color + 1], (int)data->wall.east.addr[pos_color + 2]));
+        }
         draw_start++;
     }
 }

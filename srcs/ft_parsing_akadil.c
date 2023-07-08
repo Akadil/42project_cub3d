@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:40:25 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/08 15:01:48 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/08 18:31:16 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void    ft_parsing_akadil(int argc, char **argv, t_data *data)
             {
                 data->player.x = j + 0.5;
                 data->player.y = i + 0.5;
-                data->angle = 300.0;
+                data->angle = 90.0;
                 checker = 1;
             }
             j++;
@@ -148,6 +148,25 @@ void    ft_parsing_akadil(int argc, char **argv, t_data *data)
     data->wall.west.addr = mlx_get_data_addr(data->wall.west.mlx_img, &data->wall.west.bpp, &data->wall.west.line_len, &data->wall.west.endian);
     data->wall.east.addr = mlx_get_data_addr(data->wall.east.mlx_img, &data->wall.east.bpp, &data->wall.east.line_len, &data->wall.east.endian);
 
+
+    // int x, y;
+    // for (y = 0; y < data->wall.north.height; y++) {
+    //     for (x = 0; x < data->wall.north.width; x++) {
+    //         // Calculate pixel position in image_data array
+    //         int pos = (y * data->wall.north.line_len) + (x * (data->wall.north.bpp / 8));
+
+    //         // Access individual color channels of the pixel
+    //         int red = data->wall.north.addr[pos];
+    //         int green = data->wall.north.addr[pos + 1];
+    //         int blue = data->wall.north.addr[pos + 2];
+
+    //         // Manipulate pixel values as needed
+    //         // ...
+
+    //         // Example: Print pixel RGB values
+    //         printf("Pixel at (%d, %d): R=%d, G=%d, B=%d\n", x, y, red, green, blue);
+    //     }
+    // }
 }
 
 
