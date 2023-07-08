@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:19:18 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/07 12:39:52 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/08 14:29:46 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,16 @@ typedef struct s_img
 	int			bpp;
 	int			line_len;
 	int			endian;
+	int			width;
+	int			height;
 }				t_img;
 
 typedef struct s_wall
 {
-    t_img    *north;
-    t_img    *south;
-    t_img    *west;
-    t_img    *east;
+    t_img    north;
+    t_img    south;
+    t_img    west;
+    t_img    east;
     void    *floor;
     void    *ceil;
 }   t_wall;
@@ -60,7 +62,7 @@ typedef struct s_data
 	char		**map;
 
 	/*	Wall textures	*/
-	t_wall		*wall;
+	t_wall		wall;
 
 	t_vector	player;
 	t_view		view;

@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:52:13 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/07 13:05:40 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/08 15:10:10 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,19 @@ typedef struct s_ray
     double      distance_perp;
 }   t_ray;
 
+typedef struct  s_color
+{
+    int r;
+    int g;
+    int b;
+}       t_color;
+
 double  ft_find_dist_perp(t_ray ray);
 void    ft_set_ray_vectors(int x, t_ray *ray, t_view *view, t_data *data);
 void    ft_set_direction_vector(float angle, t_view  *view);
 void    ft_draw_column(int x, t_ray ray, t_data *data);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int     create_rgb(int r, int g, int b);
 
 void    ft_render_projection(t_data *data)
 {
@@ -87,7 +95,7 @@ void    ft_draw_column(int x, t_ray ray, t_data *data)
         draw_end = WINDOW_HEIGHT - 1;
     while (draw_start < draw_end)
     {
-        my_mlx_pixel_put(data, x, draw_start, 255);
+        my_mlx_pixel_put(data, x, draw_start, create_rgb(255, 0, 0));
         draw_start++;
     }
 }
