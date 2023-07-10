@@ -73,6 +73,10 @@ void    ft_parsing_akadil(int argc, char **argv, t_data *data)
             data->wall.east.addr = (char *)head->content + 3;
             data->wall.east.addr[ft_strlen(data->wall.east.addr) - 1] = '\0';
         }
+        else
+        {
+            
+        }
         head = head->next;
     }
 

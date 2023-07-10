@@ -20,6 +20,6 @@
 int		ft_parsing_args(int argc, char **argv, t_list **rows);
 t_list	*ft_get_map_rows(t_list **rows);
 int		ft_parsing_textures(t_list *rows, t_data *data);
-int		ft_parsing_map(t_list *rows);
+int		ft_parsing_map(t_list *rows, t_data *data);
 
 #endif

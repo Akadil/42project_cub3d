@@ -40,7 +40,7 @@ void    ft_parsing(int argc, char **argv, t_data *data)
     
     /*  Parse the map   */
     /*  -------------   */
-    result = ft_parsing_map(rows_map);
+    result = ft_parsing_map(rows_map, data);
     if (result != 0)
         ft_error("Error!\n", result);
 }   
