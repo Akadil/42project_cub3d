@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:14:59 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/07 15:31:22 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/10 12:33:10 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,18 @@ int	ft_handle_keypress(int keysym, t_data *data)
 	}
 	else if (keysym == 'w')
     {
-		if(data->map[(int)(data->player.y)][(int)(data->player.x + data->view.dir.x * 0.05)] != '1') 
-			data->player.x = data->player.x + data->view.dir.x * 0.05;
-		if(data->map[(int)(data->player.y + data->view.dir.y * 0.05)][(int)(data->player.x)] != '1') 
-			data->player.y += data->view.dir.y * 0.05;
+		if(data->map[(int)(data->player.y)][(int)(data->player.x + data->view.dir.x * 0.1)] != '1') 
+			data->player.x = data->player.x + data->view.dir.x * 0.1;
+		if(data->map[(int)(data->player.y + data->view.dir.y * 0.1)][(int)(data->player.x)] != '1') 
+			data->player.y += data->view.dir.y * 0.1;
     }
     //move backwards if no wall behind you
     else if (keysym == 's')
     {
-		if(data->map[(int)(data->player.y)][(int)(data->player.x - data->view.dir.x * 0.05)] != '1') 
-			data->player.x -= data->view.dir.x * 0.05;
-		if(data->map[(int)(data->player.y - data->view.dir.y * 0.05)][(int)(data->player.x)] != '1') 
-			data->player.y -= data->view.dir.y * 0.05;
+		if(data->map[(int)(data->player.y)][(int)(data->player.x - data->view.dir.x * 0.1)] != '1') 
+			data->player.x -= data->view.dir.x * 0.1;
+		if(data->map[(int)(data->player.y - data->view.dir.y * 0.1)][(int)(data->player.x)] != '1') 
+			data->player.y -= data->view.dir.y * 0.1;
     }
 	else if (keysym == 'a')
     {
