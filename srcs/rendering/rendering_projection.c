@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:52:13 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/10 13:02:25 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/11 12:03:16 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,6 @@
 #include <stdio.h>
 #include <float.h>
 #include <unistd.h>
-
-typedef struct s_ray
-{
-    t_vector    dir;    // Or change it to pos
-    t_vector    map;
-    t_vector    delta_dist;
-    t_vector    side_dist;
-    t_vector    step;
-    int         side;
-    double      distance_perp;
-}   t_ray;
 
 double  ft_find_dist_perp(t_ray ray);
 void    ft_set_ray_vectors(int x, t_ray *ray, t_view *view, t_data *data);
@@ -68,8 +57,6 @@ void    ft_render_projection(t_data *data)
         ft_draw_column(x, ray, data);
         x++;
     }
-    // printf("=======================================================================\n");
-    // printf("=======================================================================\n");
 }
 
 void    ft_draw_column(int x, t_ray ray, t_data *data)

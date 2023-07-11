@@ -4,8 +4,11 @@ MLX				= libmlx_Linux.a
 
 SRCS            =	ft_main.c \
 					ft_parsing_akadil.c \
-					ft_rendering.c \
-					rendering/ft_render_projection.c
+					ft_keypress.c \
+					rendering.c \
+					rendering/rendering_background.c \
+					rendering/rendering_utils.c \
+					rendering/rendering_projection.c \
 
 SRCS_DIR		= ./srcs
 BUILD_DIR       = ./.build
@@ -19,7 +22,7 @@ SRCS			:= $(addprefix $(SRCS_DIR)/, $(SRCS))
 
 CC				= cc
 CFLAGS          = -Wall -Werror -Wextra
-HFLAGS			= -I $(INCLUDES_DIR) -I $(MLX_DIR)
+HFLAGS			= -I $(INCLUDES_DIR) -I $(MLX_DIR) -I ./srcs/rendering/includes
 
 all						: ${NAME}
 

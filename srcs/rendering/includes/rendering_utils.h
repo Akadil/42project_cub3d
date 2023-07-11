@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct_ray.h                                       :+:      :+:    :+:   */
+/*   rendering_utils.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/10 13:01:29 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/11 12:12:17 by akalimol         ###   ########.fr       */
+/*   Created: 2023/07/11 12:10:14 by akalimol          #+#    #+#             */
+/*   Updated: 2023/07/11 12:14:40 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_RAY_H
-# define STRUCT_RAY_H
+#ifndef RENDERING_UTILS_H
+# define RENDERING_UTILS_H
 
-typedef struct s_ray
-{
-    t_vector    dir;    // Or change it to pos
-    t_vector    map;
-    t_vector    delta_dist;
-    t_vector    side_dist;
-    t_vector    step;
-    int         side;
-    double      distance_perp;
-}   t_ray;
+# include "struct_data.h"
 
+int     create_rgb(int r, int g, int b);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 #endif
