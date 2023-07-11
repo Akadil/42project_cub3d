@@ -1,19 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_render_projection.c                             :+:      :+:    :+:   */
+/*   rendering_projection.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:52:13 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/11 12:03:16 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:32:52 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct_data.h"
 #include "struct_ray.h"
-
-#define PI 3.14
 
 #include <math.h>
 #include <stdlib.h>
@@ -187,18 +185,4 @@ void    ft_set_ray_vectors(int x, t_ray *ray, t_view *view, t_data *data)
         ray->side_dist.y = (ray->map.y + 1.0 - data->player.y) * ray->delta_dist.y;
         ray->step.y = 1;
     }
-}
-
-
-
-/*  =========================================================     */
-    /*  Maybe this function have to be done in ft_handling  */
-            /*  and variables set in the t_data */
-/*  =========================================================     */
-void    ft_set_direction_vector(float angle, t_view  *view)
-{
-    view->dir.x = cos(angle * PI / 180);
-    view->dir.y = sin(angle * PI / 180);
-    view->plane.x = 0.66 * sin (angle * PI / 180) * -1;
-    view->plane.y = 0.66 * cos (angle * PI / 180);
 }

@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:19:18 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/10 19:06:53 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:36:20 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # define WINDOW_HEIGHT 480
 # define WINDOW_WIDTH 640
-# define SPEED 0.1
+# define SPEED 0.07
+# define ROTATION 3
 
 typedef struct s_vector
 {
@@ -50,25 +51,34 @@ typedef struct s_view
     t_vector    plane;   
 }       t_view;
 
+#include <stdbool.h>
+
+typedef struct s_event
+{
+	bool	move_fw;
+	bool	move_bw;
+	bool	move_rg;
+	bool	move_lf;
+	bool	rotate_lf;
+	bool	rotate_rg;
+}	t_event;
+
+
 /*  Our main data   */
 typedef struct s_data
 {
-	/*	Access to mlx instances*/
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_img		img_win;
 	t_img		img_minimap;
 
-	/*	The map	*/
 	char		**map;
 
-	/*	Wall textures	*/
 	t_wall		wall;
-
+	t_event		event;
 	t_vector	player;
 	t_view		view;
 	float		angle;
 }   			t_data;
-
 
 #endif

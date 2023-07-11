@@ -4,11 +4,14 @@ MLX				= libmlx_Linux.a
 
 SRCS            =	ft_main.c \
 					ft_parsing_akadil.c \
-					ft_keypress.c \
+					event_handler.c \
 					rendering.c \
 					rendering/rendering_background.c \
 					rendering/rendering_utils.c \
 					rendering/rendering_projection.c \
+					rendering/react_to_event/react_to_event.c \
+					rendering/react_to_event/react_to_move.c \
+					rendering/react_to_event/react_to_rotate.c 
 
 SRCS_DIR		= ./srcs
 BUILD_DIR       = ./.build
