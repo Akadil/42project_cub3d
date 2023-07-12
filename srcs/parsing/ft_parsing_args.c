@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 10:41:16 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/03 11:34:45 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:35:27 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ int ft_parsing_args(int argc, char **argv, t_list **rows)
     *rows = head;
     return (0);
 }
-
-
 
 /*  Previously written code */
 int	ft_parsing_args_previous(int argc, char **argv, t_list **rows)
