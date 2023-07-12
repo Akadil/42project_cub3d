@@ -41,12 +41,13 @@ typedef struct s_wall
     t_img    south;
     t_img    west;
     t_img    east;
-    void    *floor;
-    void    *ceil;
+    int    floor;
+    int    ceil;
 }   t_wall;
 
 typedef struct s_view
 {
+
     t_vector    dir;
     t_vector    plane;   
 }       t_view;

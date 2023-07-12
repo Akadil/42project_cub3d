@@ -63,7 +63,7 @@ void	bresenhams(t_data *data, t_vector *p1, t_vector *p2)
 	err = ft_abs((int)p2->x, (int)p1->x) - ft_abs((int)p2->y, (int)p1->y);
 	while ((int)p.x != (int)p2->x || (int)p.y != (int)p2->y)
 	{
-        my_mlx_pixel_put(data, (int)p.x, (int)p.y, 0);
+        my_mlx_pixel_put(data, (int)p.x, (int)p.y, create_rgb(255, 255, 255));
 		e = 2 * err;
 		if (e > -1 * ft_abs((int)p2->y, (int)p1->y))
 		{
@@ -76,7 +76,7 @@ void	bresenhams(t_data *data, t_vector *p1, t_vector *p2)
 			p.y += ft_slope((int)p1->y, (int)p2->y);
 		}
 	}
-    my_mlx_pixel_put(data, (int)p.x, (int)p.y, 0);
+    my_mlx_pixel_put(data, (int)p.x, (int)p.y, create_rgb(255, 255, 255));
 }
 
 #include <stdio.h>
@@ -91,7 +91,7 @@ void    ft_draw_player(t_data *data)
     int j_end;
 
     i_beg = (double)WINDOW_HEIGHT / 4.0 * 3.0 + data->player.y * 5.0 - 1;
-    i_end = (double)WINDOW_HEIGHT / 4 * 3 + data->player.y * 5.0 + 1;
+    i_end = (double)WINDOW_HEIGHT / 4.0 * 3 + data->player.y * 5.0 + 1;
     while (i_beg < i_end)
     {
         j_beg = (double)WINDOW_WIDTH / 4.0 * 3.0 + data->player.x * 5.0 - 1;
@@ -103,11 +103,22 @@ void    ft_draw_player(t_data *data)
         }
         i_beg++;
     }
-    player.y = (double)WINDOW_HEIGHT / 4.0 * 3.0 + data->player.x * 5.0;
-    player.x = (double)WINDOW_WIDTH / 4.0 * 3.0 + data->player.y * 5.0;
-    map_ray.x = player.x + data->view.dir.x * 10;
-    map_ray.y = player.y + data->view.dir.y * 10;
-    printf("Player: %lf %lf, %lf %lf\n", player.x, player.y, map_ray.x, map_ray.y);
+    player.y = (double)WINDOW_HEIGHT / 4.0 * 3.0 + data->player.y * 5.0;
+    player.x = (double)WINDOW_WIDTH / 4.0 * 3.0 + data->player.x * 5.0;
+    map_ray.x = player.x + data->view.dir.x * 5;
+    map_ray.y = player.y + data->view.dir.y * 5;
+    bresenhams(data, &player, &map_ray);
+    map_ray.x = player.x + data->view.dir.x * 5 + data->view.plane.x * 3;
+    map_ray.y = player.y + data->view.dir.y * 5 + data->view.plane.y * 3;
+    bresenhams(data, &player, &map_ray);
+    map_ray.x = player.x + data->view.dir.x * 5 - data->view.plane.x * 3;
+    map_ray.y = player.y + data->view.dir.y * 5 - data->view.plane.y * 3;
+    bresenhams(data, &player, &map_ray);
+    map_ray.x = player.x + data->view.dir.x * 5 + data->view.plane.x * 1.5;
+    map_ray.y = player.y + data->view.dir.y * 5 + data->view.plane.y * 1.5;
+    bresenhams(data, &player, &map_ray);
+    map_ray.x = player.x + data->view.dir.x * 5 - data->view.plane.x * 1.5;
+    map_ray.y = player.y + data->view.dir.y * 5 - data->view.plane.y * 1.5;
     bresenhams(data, &player, &map_ray);
 }
 
@@ -122,9 +133,9 @@ void    ft_rendering_minimap(t_data *data)
         y = 0;
         while (data->map[x][y])
         {
-            if (data->map[x][y] == '1')
-                ft_draw_rectangle(data, x, y, create_rgb(255, 0, 0));
-            else if (data->map[x][y] == '0' || data->map[x][y] == 'N')
+            // if (data->map[x][y] == '1')
+            //     ft_draw_rectangle(data, x, y, create_rgb(255, 0, 0));
+            if (data->map[x][y] == '0' || data->map[x][y] == 'N')
                 ft_draw_rectangle(data, x, y, create_rgb(0, 0, 255));
             y++;
         }       
