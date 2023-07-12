@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:19:18 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/11 15:36:20 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:05:52 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # define WINDOW_HEIGHT 480
 # define WINDOW_WIDTH 640
-# define SPEED 0.07
-# define ROTATION 3
+# define SPEED 0.05
+# define ROTATION 1.5
 
 typedef struct s_vector
 {

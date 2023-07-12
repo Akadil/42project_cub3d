@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:40:25 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/08 18:31:16 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:42:27 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,24 @@ void    ft_parsing_akadil(int argc, char **argv, t_data *data)
     /* ======================================================== */
                         /*  Parse the map   */
     /* ======================================================== */
+
+    int largest_row = -1;
+
     head = NULL;
     fd = open(argv[1], O_RDONLY);
     str = get_next_line(fd, 0);
     while (str)
     {
+        if ((int)ft_strlen(str) > largest_row)
+            largest_row = ft_strlen(str);
         row = ft_lstnew(str, 0);
         ft_lstadd_back(&head, row);
         str = get_next_line(fd, 0);
     }
     get_next_line(0, 1);
     close (fd);
+
+    
 
 
     /* ======================================================== */
@@ -73,12 +80,28 @@ void    ft_parsing_akadil(int argc, char **argv, t_data *data)
             data->wall.east.addr = (char *)head->content + 3;
             data->wall.east.addr[ft_strlen(data->wall.east.addr) - 1] = '\0';
         }
-        else
-        {
-            
-        }
         head = head->next;
     }
+
+    // int     size;
+
+    // row = head;
+    // while (row)
+    // {
+    //     if ((int)ft_strlen((char *)row->content) < largest_row)
+    //     {
+    //         str = (char *)ft_calloc(sizeof(char), largest_row + 1);
+    //         size = (int)ft_strlcpy(str, (char *)row->content, largest_row + 1);
+    //         while (size < largest_row)
+    //         {
+    //             str[size] = '8';
+    //             size++;
+    //         }
+    //         free (row->content);
+    //         row->content = str;
+    //     }
+    //     row = row->next;
+    // }
 
 
     /* ======================================================== */
@@ -135,8 +158,8 @@ void    ft_parsing_akadil(int argc, char **argv, t_data *data)
 	data->win_ptr = mlx_new_window(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d");
 	data->img_win.mlx_img = mlx_new_image(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	data->img_win.addr = mlx_get_data_addr(data->img_win.mlx_img, &data->img_win.bpp, &data->img_win.line_len, &data->img_win.endian);
-    
-
+    data->img_minimap.mlx_img = mlx_new_image(data->mlx_ptr, (int)(WINDOW_WIDTH / 4), (int)(WINDOW_HEIGHT / 4));
+	data->img_minimap.addr = mlx_get_data_addr(data->img_minimap.mlx_img, &data->img_minimap.bpp, &data->img_minimap.line_len, &data->img_minimap.endian);
 
     /* ======================================================== */
                         /*  Parsing the images  */
@@ -146,8 +169,7 @@ void    ft_parsing_akadil(int argc, char **argv, t_data *data)
     data->wall.west.mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, data->wall.west.addr, &data->wall.west.width, &data->wall.west.height);
     data->wall.east.mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, data->wall.east.addr, &data->wall.east.width, &data->wall.east.height);
 
-    data->wall.north.addr = mlx_get_data_addr(data->wall.north.mlx_img, 
-                                                &data->wall.north.bpp, &data->wall.north.line_len, &data->wall.north.endian);
+    data->wall.north.addr = mlx_get_data_addr(data->wall.north.mlx_img, &data->wall.north.bpp, &data->wall.north.line_len, &data->wall.north.endian);
     data->wall.south.addr = mlx_get_data_addr(data->wall.south.mlx_img, &data->wall.south.bpp, &data->wall.south.line_len, &data->wall.south.endian);
     data->wall.west.addr = mlx_get_data_addr(data->wall.west.mlx_img, &data->wall.west.bpp, &data->wall.west.line_len, &data->wall.west.endian);
     data->wall.east.addr = mlx_get_data_addr(data->wall.east.mlx_img, &data->wall.east.bpp, &data->wall.east.line_len, &data->wall.east.endian);
