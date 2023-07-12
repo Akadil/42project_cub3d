@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:34:55 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/03 12:47:04 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:45:54 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ int ft_parsing_map(t_list *rows, t_data *data)
     char    **map;
     int     i;
 
-    if (ft_lstsize(rows) <= 2)
-        return (-1);
     if (ft_check_player_existense(rows, data) != 0)
         return (-1);
     map = (char **)malloc(sizeof(char *) * (ft_lstsize(rows) + 1));
@@ -33,8 +31,10 @@ int ft_parsing_map(t_list *rows, t_data *data)
         return (ft_lstclear(&rows, &free), -1);
     ft_init_map(rows, map);
     ft_lstclear(&rows, NULL);
-	if (ft_check_proper_walls(rows) != 0)
+	if (ft_check_proper_walls(map) != 0)
         return (-1);
+    data->map = map;
+    return (0);
 }
 
 int ft_check_player_existense(t_list *rows, t_data *data)
@@ -77,14 +77,58 @@ void    ft_init_player(t_data *data, char p, int row_num, int i)
         data->angle = 180.0;
 }
 
+int ft_find_largest_width(t_list *rows)
+{
+    int largest;
+    int len;
+
+    largest = -1;
+    while (rows)
+    {
+        len = ft_strlen((char *)rows->content);
+        if (((char *)rows->content)[len - 1] == '\n')
+            len--;
+        if (len > largest)
+            largest = len;
+        rows = rows->next;
+    }
+    return (largest);
+}
+
 void	ft_init_map(t_list *rows, char **map)
 {
 	int	i;
+    int j;
+    int largest_width;
+    int len;
 
+    largest_width = ft_find_largest_width(rows);
 	i = 0;
 	while (rows)
 	{
-		map[i] = (char *)rows->content;
+        len = ft_strlen((char *)rows->content);
+        if (len < largest_width)  // if (26 < 34)
+        {
+            map[i] = (char *)ft_calloc(sizeof(char), largest_width + 1);
+            if (!map[i])
+                return (0);     // Fix me!
+            j = 0;
+            // Do slesh n
+            while (((char *)rows->content)[j] && ((char *)rows->content)[j] != '\n')
+            {
+                map[i][j] = ((char *)rows->content)[j];
+                j++;
+            }
+            while (j < largest_width)
+            {
+                map[i][j] = ' ';
+                j++;
+            }
+            map[i][j] = '\0';
+            free (rows->content);
+        }
+        else
+		    map[i] = (char *)rows->content;
 		rows = rows->next;
 		i++;
 	}
