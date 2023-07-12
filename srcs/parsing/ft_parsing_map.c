@@ -152,31 +152,46 @@ int valid_char(char c)
     return (0);
 }
 
+int ft_find_largest_height(char **map)
+{
+    int x;
+
+    while(map[x])
+        x++;
+    return (x);
+}
+
 int	ft_check_proper_walls(char **map)
 {
     int x;
 	int y;
+    int largest_height;
 
 	x = 0;
-	y = 0; 
-	
-	while (data->map[y])
+    largest_height = ft_find_largest_height(data->map);
+	while (data->map[x])
 	{
-		while (data->map[y][x])
+		y = 0;
+        while (data->map[x][y])
 		{
-			if(!valid_char(data->map[y][x]))
+			if(!valid_char(data->map[x][y]))
 			{
 				ft_printf("Error: Invalid map character");
-				return 0;
+				return (0);
 			}
-			//check walls
-			if(data->map[0][x] != WALL || data ->map[y-1][x] != WALL || data->map[y][0] != WALL || data->map[y][x-1] != WALL)
-			{
-				ft_printf("Error: Map should be surrounded with walls");
-				return 0;
+			if(data->map[x][y] == '0')
+            {
+                if(x == 0 || y == 0 || x == largest_height - 1 || !map[x][j + 1])
+                    return (1);
+                else if(data->map[x][y + 1] == ' ' || data ->map[x][y - 1] == ' ' || data->map[x + 1][y] == ' ' || data->map[x - 1][y] != ' ')
+                    return (1);
+                else if(data->map[x][y + 1] == ' ' || data ->map[x][y - 1] == ' ' || data->map[x + 1][y] == ' ' || data->map[x - 1][y] != ' ')
+				    ft_printf("Error: Map should be surrounded with walls");
+				return (1);
 			}
-			x++;
+			y++;
 		}
-		y++;
+		x++;
 	}
+    return (0);
 }
