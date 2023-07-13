@@ -131,28 +131,65 @@ int ft_parsing_textures_old(t_list *rows)
     return (wall);
 }
 
+int number_of_space(char *str)
+{
+    int i = 0;
+    int j = 0;
 
-    data->wall.north.mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, data->wall.north.addr, &data->wall.north.width, &data->wall.north.height);
-    if(!data->wall.north.mlx_img)
-       return (ft_error(""), -2);
-    data->wall.south.mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, data->wall.south.addr, &data->wall.south.width, &data->wall.south.height);
-    //if(!data->wall.south.mlx_img)
-    //    ft_error();
-    data->wall.west.mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, data->wall.west.addr, &data->wall.west.width, &data->wall.west.height);
-    //if(!data->wall.west.mlx_img)
-    //    ft_error();
-    data->wall.east.mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, data->wall.east.addr, &data->wall.east.width, &data->wall.east.height);
-    //if(!data->wall.east.mlx_img)
-    //    ft_error();
-    data->wall.north.addr = mlx_get_data_addr(data->wall.north.mlx_img, &data->wall.north.bpp, &data->wall.north.line_len, &data->wall.north.endian);
-    //if(!data->wall.north.addr)
-    //    ft_error(-2);
-    data->wall.south.addr = mlx_get_data_addr(data->wall.south.mlx_img, &data->wall.south.bpp, &data->wall.south.line_len, &data->wall.south.endian);
-    //if(!data->wall.south.addr)
-    //    ft_error();
-    data->wall.west.addr = mlx_get_data_addr(data->wall.west.mlx_img, &data->wall.west.bpp, &data->wall.west.line_len, &data->wall.west.endian);
-    //if(!data->wall.south.addr)
-    //    ft_error();
-    data->wall.east.addr = mlx_get_data_addr(data->wall.east.mlx_img, &data->wall.east.bpp, &data->wall.east.line_len, &data->wall.east.endian);
-    //if(!data->wall.south.addr)
-    //    ft_error();
+    while(str[i])
+    {
+        if(str[i] != ' ' && str[i] != '\t')
+            i++;
+        else if (str[i] == ' ' || str[i] == '\t')
+            j++;
+    }
+    return(j);
+}
+
+void    ft_parsing_akadil(int argc, char **argv, t_data *data)
+{
+    int space;
+
+    space = number_of_space();
+
+    while (ft_strncmp((char *)head->content, "1", 1) != 0)
+    {
+        if (ft_strncmp((char *)head->content, "NO ", 3) == 0)
+        {
+            data->wall.north.addr = (char *)head->content + 3;                      // Remove the beginning
+            data->wall.north.addr[ft_strlen(data->wall.north.addr) - 1] = '\0';     // Remove the newline at the end
+        }
+        else if (ft_strncmp((char *)head->content, "SO ", 3) == 0)
+        {
+            data->wall.south.addr = (char *)head->content + 2 + space//(calculate how many space)
+            data->wall.south.addr[ft_strlen(data->wall.south.addr) - 1] = '\0';
+        }
+        else if (ft_strncmp((char *)head->content, "WE ", 3) == 0)
+        {
+            data->wall.west.addr = (char *)head->content + 2 + space;
+            data->wall.west.addr[ft_strlen(data->wall.west.addr) - 1] = '\0';
+        }
+        else if (ft_strncmp((char *)head->content, "EA ", 3) == 0)
+        {
+            data->wall.east.addr = (char *)head->content + 2 + space;
+            data->wall.east.addr[ft_strlen(data->wall.east.addr) - 1] = '\0';
+        }
+        else if (ft_strncmp((char *)head->content, "C ", 2) == 0)
+        {
+		    data->wall.ceil = set_rgb_colors((char *)head->content + 2 + space);
+		    if (data->wall.ceil == 0)
+			    return (ft_error());
+	    }
+	    else if (ft_strncmp((char *)head->content, "F ", 2) == 0)
+	    {
+		    data->wall.floor = set_rgb_colors((char *)head->content + 2 + space);
+		    if (data->wall.ceil == 0)
+			    return (ft_error());
+	    }
+        head = head->next;
+    }
+}
+
+
+//all the keyword is exist in the file
+//check the duplicate keyword in the map

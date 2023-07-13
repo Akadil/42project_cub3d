@@ -27,28 +27,8 @@
  * 
  * @return int  -   if everything is ok, return fd of the file
  */
-int ft_parsing_args(int argc, char **argv, t_list **rows)
-{
-    t_list  *head;
-    int     fd;
 
-    /*  Check the arguments */
-    if (ft_check_args(argc, argv) != 0)
-        return (-1);
-
-    /*  Open the file   */
-    fd = open(argv[1], O_RDONLY);
-    if (fd == -1)
-        return (-1);
-
-    /* the code ... */
-
-    *rows = head;
-    return (0);
-}
-
-/*  Previously written code */
-int	ft_parsing_args_previous(int argc, char **argv, t_list **rows)
+int	ft_check_args(int argc, char **argv, t_list **rows)
 {
 	int fd;
     int i;
@@ -95,4 +75,24 @@ void    ft_get_rows(int fd)
         str = get_next_line(fd, 0);
     }
     return (rows);
+}
+
+int ft_parsing_args(int argc, char **argv, t_list **rows)
+{
+    t_list  *head;
+    int     fd;
+
+    /*  Check the arguments */
+    if (ft_check_args(argc, argv) != 0)
+        return (-1);
+
+    /*  Open the file   */
+    fd = open(argv[1], O_RDONLY);
+    if (fd == -1)
+        return (-1);
+
+    /* the code ... */
+
+    *rows = head;
+    return (0);
 }

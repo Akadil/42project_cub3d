@@ -19,22 +19,23 @@
  *  
  * @return (int)    the result. 0 if everything is ok, - if wrong 
  */
-int ft_parsing_map(t_list *rows, t_data *data)
-{
-    char    **map;
-    int     i;
 
-    if (ft_check_player_existense(rows, data) != 0)
-        return (-1);
-    map = (char **)malloc(sizeof(char *) * (ft_lstsize(rows) + 1));
-    if (!map)
-        return (ft_lstclear(&rows, &free), -1);
-    ft_init_map(rows, map);
-    ft_lstclear(&rows, NULL);
-	if (ft_check_proper_walls(map) != 0)
-        return (-1);
-    data->map = map;
-    return (0);
+int ft_find_largest_width(t_list *rows)
+{
+    int largest;
+    int len;
+
+    largest = -1;
+    while (rows)
+    {
+        len = ft_strlen((char *)rows->content);
+        if (((char *)rows->content)[len - 1] == '\n')
+            len--;
+        if (len > largest)
+            largest = len;
+        rows = rows->next;
+    }
+    return (largest);
 }
 
 int ft_check_player_existense(t_list *rows, t_data *data)
@@ -63,135 +64,20 @@ int ft_check_player_existense(t_list *rows, t_data *data)
     }
 }
 
-void    ft_init_player(t_data *data, char p, int row_num, int i)
+int ft_parsing_map(t_list *rows, t_data *data)
 {
-    data->player.x = row_num;
-    data->player.y = i;
-    if (p == 'N')
-        data->angle = 270.0;
-    else if (p == 'E')
-        data->angle = 0.0;
-    else if (p == 'S')
-        data->angle = 90.0;
-    else
-        data->angle = 180.0;
-}
+    char    **map;
+    int     i;
 
-int ft_find_largest_width(t_list *rows)
-{
-    int largest;
-    int len;
-
-    largest = -1;
-    while (rows)
-    {
-        len = ft_strlen((char *)rows->content);
-        if (((char *)rows->content)[len - 1] == '\n')
-            len--;
-        if (len > largest)
-            largest = len;
-        rows = rows->next;
-    }
-    return (largest);
-}
-
-void	ft_init_map(t_list *rows, char **map)
-{
-	int	i;
-    int j;
-    int largest_width;
-    int len;
-
-    largest_width = ft_find_largest_width(rows);
-	i = 0;
-	while (rows)
-	{
-        len = ft_strlen((char *)rows->content);
-        if (len < largest_width)  // if (26 < 34)
-        {
-            map[i] = (char *)ft_calloc(sizeof(char), largest_width + 1);
-            if (!map[i])
-                return (0);     // Fix me!
-            j = 0;
-            // Do slesh n
-            while (((char *)rows->content)[j] && ((char *)rows->content)[j] != '\n')
-            {
-                map[i][j] = ((char *)rows->content)[j];
-                j++;
-            }
-            while (j < largest_width)
-            {
-                map[i][j] = ' ';
-                j++;
-            }
-            map[i][j] = '\0';
-            free (rows->content);
-        }
-        else
-		    map[i] = (char *)rows->content;
-		rows = rows->next;
-		i++;
-	}
-	map[i] = NULL;
-}
-
-typedef enum s_tiletype
-{
-    EMPTY = '0',
-    WALL = '1',
-    N = 'N',
-    S = 'S',
-    E = 'E',
-    W = 'W';
-} t_tiletype;
-
-int valid_char(char c)
-{
-    if (c == WALL || c == EMPTY || c == N || c == S || c == E || c == W)
-        return (1);
-    return (0);
-}
-
-int ft_find_largest_height(char **map)
-{
-    int x;
-
-    while(map[x])
-        x++;
-    return (x);
-}
-
-int	ft_check_proper_walls(char **map)
-{
-    int x;
-	int y;
-    int largest_height;
-
-	x = 0;
-    largest_height = ft_find_largest_height(data->map);
-	while (data->map[x])
-	{
-		y = 0;
-        while (data->map[x][y])
-		{
-			if(!valid_char(data->map[x][y]))
-			{
-				ft_printf("Error: Invalid map character");
-				return (0);
-			}
-			if(data->map[x][y] == '0')
-            {
-                if(x == 0 || y == 0 || x == largest_height - 1 || !map[x][j + 1])
-                    return (1);
-                else if(data->map[x][y + 1] == ' ' || data ->map[x][y - 1] == ' ' || data->map[x + 1][y] == ' ' || data->map[x - 1][y] != ' ')
-                    return (1);
-                else if(data->map[x][y + 1] == ' ' || data ->map[x][y - 1] == ' ' || data->map[x + 1][y] == ' ' || data->map[x - 1][y] != ' ')
-				    ft_printf("Error: Map should be surrounded with walls");
-				return (1);
-			}
-			y++;
-		}
-		x++;
-	}
+    if (ft_check_player_existense(rows, data) != 0)
+        return (-1);
+    map = (char **)malloc(sizeof(char *) * (ft_lstsize(rows) + 1));
+    if (!map)
+        return (ft_lstclear(&rows, &free), -1);
+    ft_init_map(rows, map);
+    ft_lstclear(&rows, NULL);
+	if (ft_check_proper_walls(map) != 0)
+        return (-1);
+    data->map = map;
     return (0);
 }
