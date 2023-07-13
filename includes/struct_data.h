@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:19:18 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/12 16:05:52 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/13 20:35:42 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define WINDOW_WIDTH 640
 # define SPEED 0.05
 # define ROTATION 1.5
+# define PI 3.14
 
 typedef struct s_vector
 {
@@ -24,9 +25,23 @@ typedef struct s_vector
     double  y;
 }   t_vector;
 
+typedef struct s_coordinate
+{
+	int	x;
+	int	y;
+}	t_coorddinate;
+
+typedef struct s_floor_ceil
+{
+	char	*name;
+	int		color;
+}	t_floor_ceil;
+
+
 typedef struct s_img
 {
 	void		*mlx_img;
+	char		*name;
 	char		*addr;
 	int			bpp;
 	int			line_len;
@@ -41,8 +56,8 @@ typedef struct s_wall
     t_img    south;
     t_img    west;
     t_img    east;
-    int    floor;
-    int    ceil;
+    t_floor_ceil    floor;
+    t_floor_ceil    ceil;
 }   t_wall;
 
 typedef struct s_view
