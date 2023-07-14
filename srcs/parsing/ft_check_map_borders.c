@@ -1,4 +1,3 @@
-#include <fcntl.h>
 #include "libft.h"
 
 typedef enum s_tiletype

@@ -23,7 +23,7 @@ int ft_parsing_textures(t_list *rows, t_data *data)
 {
     if (ft_check_direction_names(rows) != 0)
         return (0);
-    if (ft_check_file_existence(rows) != 0)
+    if (ft_check_file_existence_wall(rows) != 0)
         return (0);
 }
 
@@ -32,11 +32,32 @@ int ft_parsing_textures(t_list *rows, t_data *data)
  * 
  * @return  (int)   result depending on file existence
  */
-int ft_check_file_existence(t_list *rows)
+int ft_check_file_existence_wall(t_data *data)
 {
+	int		fd;
 
+	fd = open(data->wall.north, O_RDONLY);
+	if (fd == -1)
+        return (-1);
+   	close(fd); 
+    fd = open(data->wall.south, O_RDONLY);
+	if (fd == -1)
+        return (-1);
+   	close(fd); 
+    fd = open(data->wall.west, O_RDONLY);
+	if (fd == -1)
+        return (-1);
+   	close(fd); 
+    fd = open(data->wall.east, O_RDONLY);
+	if (fd == -1)
+        return (-1);
+   	close(fd); 
+	if(check_valid_rgb(data->wall.floor) == 1)
+        return (-1);
+    if(check_valid_rgb(data->wall.ceil) == 1)
+        return (-1);
+    return (0);
 }
-
 
 int ft_is_wall(t_data *data, char *content)
 {

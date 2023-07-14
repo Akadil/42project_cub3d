@@ -19,6 +19,24 @@
  *  
  * @return (int)    the result. 0 if everything is ok, - if wrong 
  */
+ 
+int ft_parsing_map(t_list *rows, t_data *data)
+{
+    char    **map;
+    int     i;
+
+    if (ft_check_player_existense(rows, data) != 0)
+        return (-1);
+    map = (char **)malloc(sizeof(char *) * (ft_lstsize(rows) + 1));
+    if (!map)
+        return (ft_lstclear(&rows, &free), -1);
+    ft_init_map(rows, map);
+    ft_lstclear(&rows, NULL);
+	if (ft_check_proper_walls(map) != 0)
+        return (-1);
+    data->map = map;
+    return (0);
+}
 
 int ft_find_largest_width(t_list *rows)
 {
@@ -62,22 +80,4 @@ int ft_check_player_existense(t_list *rows, t_data *data)
         row_num++;
         rows = rows->next;
     }
-}
-
-int ft_parsing_map(t_list *rows, t_data *data)
-{
-    char    **map;
-    int     i;
-
-    if (ft_check_player_existense(rows, data) != 0)
-        return (-1);
-    map = (char **)malloc(sizeof(char *) * (ft_lstsize(rows) + 1));
-    if (!map)
-        return (ft_lstclear(&rows, &free), -1);
-    ft_init_map(rows, map);
-    ft_lstclear(&rows, NULL);
-	if (ft_check_proper_walls(map) != 0)
-        return (-1);
-    data->map = map;
-    return (0);
 }
