@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aseisenb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/03 12:34:55 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/12 16:45:54 by akalimol         ###   ########.fr       */
+/*   Created: 2023/07/14 17:17:37 by aseisenb          #+#    #+#             */
+/*   Updated: 2023/07/14 17:17:41 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "struct_data.h"
+#include "includes/ft_parsing.h"
 #include "struct_list.h"
 #include "libft.h"
 #include <stdlib.h>
+
 
 /**
  * @brief       Parse and check the map

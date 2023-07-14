@@ -23,8 +23,8 @@ int main(int argc, char **argv)
 	/*	Initialize the map	*/
 	// init_game(&data, argv[1]);
 	
-	ft_parsing_akadil(argc, argv, &data);
-
+	//ft_parsing_akadil(argc, argv, &data);
+	ft_parsing(argc, argv, &data);
 	/*	Start rendering	*/
 	mlx_loop_hook(data.mlx_ptr, &ft_rendering, &data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &ft_key_press, &data);
