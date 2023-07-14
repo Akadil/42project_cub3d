@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 10:45:52 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/13 20:37:50 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/14 15:56:23 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@
  */
 int ft_parsing_textures(t_list *rows, t_data *data)
 {
-    if (ft_check_direction_names(rows) != 0)
-        return (0);
-    if (ft_check_file_existence_wall(rows) != 0)
-        return (0);
+    if (ft_check_direction_names(rows, data) != 0)
+        return (-1);
+    if (ft_check_file_existence_wall(data) != 0)
+        return (-1);
+    return (0);
 }
 
 /**
@@ -36,7 +37,7 @@ int ft_check_file_existence_wall(t_data *data)
 {
 	int		fd;
 
-	fd = open(data->wall.north, O_RDONLY);
+	fd = open(data->wall.north.name + 3, O_RDONLY);
 	if (fd == -1)
         return (-1);
    	close(fd); 
@@ -52,10 +53,12 @@ int ft_check_file_existence_wall(t_data *data)
 	if (fd == -1)
         return (-1);
    	close(fd); 
-	if(check_valid_rgb(data->wall.floor) == 1)
+	if(check_valid_rgb(data->wall.floor.name + 2) == 1)
         return (-1);
+    data->wall.floor.color = set_rgb_colors(data->wall.floor.name + 2);
     if(check_valid_rgb(data->wall.ceil) == 1)
         return (-1);
+    data->wall.ceil.color = set_rgb_colors(data->wall.ceil.name + 2);
     return (0);
 }
 
@@ -121,7 +124,7 @@ void    ft_assign_names_floor_ceil(t_data *data, t_list *row)
     }
 }
 
-void    ft_check_direction_names(int argc, char **argv, t_data *data)
+void    ft_check_direction_names(t_list *head, t_data *data)
 {
     while (ft_strncmp((char *)head->content, "1", 1) != 0)
     {

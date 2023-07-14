@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:19:18 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/13 20:35:42 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/14 15:48:48 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define WINDOW_HEIGHT 480
 # define WINDOW_WIDTH 640
 # define SPEED 0.05
-# define ROTATION 1.5
+# define ROTATION 0.8
 # define PI 3.14
 
 typedef struct s_vector
@@ -77,6 +77,9 @@ typedef struct s_event
 	bool	move_lf;
 	bool	rotate_lf;
 	bool	rotate_rg;
+	int		rotation_speed;
+	int		rotate_rg_mouse;
+	int		rotate_lf_mouse;
 }	t_event;
 
 
