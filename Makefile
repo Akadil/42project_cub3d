@@ -12,7 +12,8 @@ SRCS            =	ft_main.c \
 					rendering/utils/rendering_utils.c \
 					rendering/react_to_event/react_to_event.c \
 					rendering/react_to_event/react_to_move.c \
-					rendering/react_to_event/react_to_rotate.c 
+					rendering/react_to_event/react_to_rotate.c \
+
 
 SRCS_DIR		= ./srcs
 BUILD_DIR       = ./.build
