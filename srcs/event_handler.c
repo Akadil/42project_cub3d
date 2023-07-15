@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:37:14 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/11 15:29:33 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/14 15:48:20 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,19 @@ int     ft_key_release(int keysym, t_data *data)
         data->event.rotate_lf = false;
     if (keysym == 'j')
         data->event.rotate_rg = false;
+    return (0);
+}
+
+int ft_mouse_move(int x, int y, t_data *data)
+{
+    (void)y;
+    if (x != WINDOW_WIDTH / 2)
+    {
+        if (x - WINDOW_WIDTH / 2 > 0)
+            data->event.rotate_rg_mouse = (double)(x - WINDOW_WIDTH / 2) / (WINDOW_WIDTH / 2) * 33;
+        else
+            data->event.rotate_lf_mouse = (double)(WINDOW_WIDTH / 2 - x) / (WINDOW_WIDTH / 2) * 33;
+        mlx_mouse_move(data->mlx_ptr, data->win_ptr, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+    }
     return (0);
 }

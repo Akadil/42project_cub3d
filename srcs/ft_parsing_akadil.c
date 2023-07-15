@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:40:25 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/11 18:42:27 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:05:51 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "mlx.h"
+#include <math.h>
 
 void    ft_parsing_akadil(int argc, char **argv, t_data *data)
 {
@@ -25,7 +26,6 @@ void    ft_parsing_akadil(int argc, char **argv, t_data *data)
     int      fd;
     char        *str;
 
-    (void)data;
     (void)argc;
     
     /* ======================================================== */
@@ -82,6 +82,8 @@ void    ft_parsing_akadil(int argc, char **argv, t_data *data)
         }
         head = head->next;
     }
+
+
 
     // int     size;
 
@@ -141,7 +143,7 @@ void    ft_parsing_akadil(int argc, char **argv, t_data *data)
             {
                 data->player.x = j + 0.5;
                 data->player.y = i + 0.5;
-                data->angle = 90.0;
+                data->angle = 270.0;
                 checker = 1;
             }
             j++;
@@ -149,6 +151,10 @@ void    ft_parsing_akadil(int argc, char **argv, t_data *data)
         i++;
     }
 
+    data->view.dir.x = cos(data->angle * PI / 180);
+    data->view.dir.y = sin(data->angle * PI / 180);
+    data->view.plane.x = 0.66 * sin (data->angle * PI / 180) * -1;
+    data->view.plane.y = 0.66 * cos (data->angle * PI / 180);
 
     /* ======================================================== */
                         /*  Start the mlx   */
@@ -174,7 +180,7 @@ void    ft_parsing_akadil(int argc, char **argv, t_data *data)
     data->wall.west.addr = mlx_get_data_addr(data->wall.west.mlx_img, &data->wall.west.bpp, &data->wall.west.line_len, &data->wall.west.endian);
     data->wall.east.addr = mlx_get_data_addr(data->wall.east.mlx_img, &data->wall.east.bpp, &data->wall.east.line_len, &data->wall.east.endian);
 
-
+    data->event.rotation_speed = 3;
     // int x, y;
     // for (y = 0; y < data->wall.north.height; y++) {
     //     for (x = 0; x < data->wall.north.width; x++) {
@@ -219,6 +225,6 @@ t_list    *ft_parsing_akadil_test_parsing(int argc, char **argv, t_data *data)
         str = get_next_line(fd, 0);
     }
     get_next_line(0, 1);
-    close (fd);
+    close (fd); 
     return (head);
 }

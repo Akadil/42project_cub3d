@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:19:18 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/14 15:48:48 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/15 17:35:19 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define WINDOW_HEIGHT 480
 # define WINDOW_WIDTH 640
-# define SPEED 0.05
+# define SPEED 0.015
 # define ROTATION 0.8
 # define PI 3.14
 
@@ -24,6 +24,13 @@ typedef struct s_vector
     double  x;
     double  y;
 }   t_vector;
+
+typedef struct s_color
+{
+	int	r;
+	int	g;
+	int	b;
+}		t_color;
 
 typedef struct s_coordinate
 {

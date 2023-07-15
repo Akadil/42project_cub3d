@@ -6,33 +6,18 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:52:13 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/11 15:32:52 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/13 16:25:45 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct_data.h"
-#include "struct_ray.h"
+#include "includes/rendering_projection.h"
 
-#include <math.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <float.h>
-#include <unistd.h>
-
-double  ft_find_dist_perp(t_ray ray);
-void    ft_set_ray_vectors(int x, t_ray *ray, t_view *view, t_data *data);
-void    ft_set_direction_vector(float angle, t_view  *view);
-void    ft_draw_column(int x, t_ray ray, t_data *data);
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int     create_rgb(int r, int g, int b);
-
-void    ft_render_projection(t_data *data)
+void    ft_render_projection(t_data *data, double ray_distances[WINDOW_WIDTH])
 {
     t_ray   ray;
     int x;
 
     x = 0;
-    ft_set_direction_vector(data->angle, &data->view);     // Move it to previous steps
     while (x < WINDOW_WIDTH)
     {
         ft_set_ray_vectors(x, &ray, &data->view, data);
@@ -52,6 +37,7 @@ void    ft_render_projection(t_data *data)
             }
         }
         ray.distance_perp = ft_find_dist_perp(ray);
+        ray_distances[x] = ray.distance_perp;
         ft_draw_column(x, ray, data);
         x++;
     }
@@ -76,6 +62,8 @@ void    ft_draw_column(int x, t_ray ray, t_data *data)
     draw_end = lineHeight / 2 + WINDOW_HEIGHT / 2;
     if (draw_end >= WINDOW_HEIGHT)
         draw_end = WINDOW_HEIGHT - 1;
+
+
     if (ray.side == 1)                      // upper or lower 
     {
         ratio_x = data->player.x + ray.distance_perp * ray.dir.x;
@@ -162,6 +150,11 @@ void    ft_set_ray_vectors(int x, t_ray *ray, t_view *view, t_data *data)
         ray->delta_dist.y = DBL_MAX;
     else
         ray->delta_dist.y = fabs(1 / ray->dir.y);
+    
+
+
+
+
     
     /*  The side steps  */
     if (ray->dir.x < 0)
