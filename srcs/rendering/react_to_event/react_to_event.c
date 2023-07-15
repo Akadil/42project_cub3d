@@ -6,11 +6,12 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:53:04 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/11 15:31:24 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/14 15:47:15 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct_data.h"
+#include <stdio.h>
 
 void	ft_move_forward(t_data *data);
 void	ft_move_backward(t_data *data);
@@ -33,4 +34,18 @@ void	ft_react_to_event(t_data *data)
 		ft_rotate_left(data);
 	if (data->event.rotate_rg == true)
 		ft_rotate_right(data);
+	if (data->event.rotate_rg_mouse > 0)
+	{
+		data->event.rotation_speed = data->event.rotate_rg_mouse;
+		ft_rotate_right(data);
+		data->event.rotation_speed = 3;
+		data->event.rotate_rg_mouse = 0;
+	}
+	if (data->event.rotate_lf_mouse > 0)
+	{
+		data->event.rotation_speed = data->event.rotate_lf_mouse;
+		ft_rotate_left(data);
+		data->event.rotation_speed = 3;
+		data->event.rotate_lf_mouse = 0;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 15:19:08 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/11 15:31:46 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/14 15:35:52 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,18 @@ void    ft_set_direction_vector(float angle, t_view  *view);
 
 void    ft_rotate_right(t_data *data)
 {
-    if (data->angle == 355)
-        data->angle = 0;
-    else
-        data->angle += 5;
+
+    data->angle += ROTATION * data->event.rotation_speed;
+    if (data->angle >= 360)
+        data->angle -= 360;
     ft_set_direction_vector(data->angle, &data->view);
 }
 
 void    ft_rotate_left(t_data *data)
 {
-    if (data->angle == 0)
-        data->angle = 355;
-    else
-        data->angle -= 5;
+    data->angle -= ROTATION * data->event.rotation_speed;
+    if (data->angle < 0)
+        data->angle += 360;
     ft_set_direction_vector(data->angle, &data->view);
 }
 
