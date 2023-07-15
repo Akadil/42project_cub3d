@@ -3,9 +3,19 @@ LIBFT			= libft.a
 MLX				= libmlx_Linux.a
 
 SRCS            =	ft_main.c \
-					ft_parsing_akadil.c \
+					ft_preprocessing.c \
 					event_handler.c \
 					rendering.c \
+					preprocessing/ft_check_map_borders.c \
+					preprocessing/ft_parsing_args.c \
+					preprocessing/ft_check_and_set_rgb.c \
+					preprocessing/ft_check_map_borders.c \
+					preprocessing/ft_parsing_args.c \
+					preprocessing/ft_parsing_map.c \
+					preprocessing/ft_parsing_textures.c \
+					preprocessing/initialization.c \
+					preprocessing/utils/ft_parsing_args_utils.c \
+					preprocessing/utils/ft_parsing_utils.c \
 					rendering/rendering_background.c \
 					rendering/rendering_projection.c \
 					rendering/rendering_minimap.c \
@@ -13,7 +23,7 @@ SRCS            =	ft_main.c \
 					rendering/react_to_event/react_to_event.c \
 					rendering/react_to_event/react_to_move.c \
 					rendering/react_to_event/react_to_rotate.c \
-
+					parsing/ft_check_and_set_rgb.c 
 
 SRCS_DIR		= ./srcs
 BUILD_DIR       = ./.build

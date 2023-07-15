@@ -13,13 +13,34 @@
 #ifndef FT_PARSING_H
 # define FT_PARSING_H
 
-# include "struct_data.h"
-# include "struct_list.h"
-# include <stdio.h>
+#include "struct_data.h"
+#include <fcntl.h>
+#include "libft.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "mlx.h"
+
+typedef enum s_tiletype
+{
+    EMPTY = '0',
+    WALL = '1',
+    N = 'N',
+    S = 'S',
+    E = 'E',
+    W = 'W',
+} t_tiletype;
 
 int		ft_parsing_args(int argc, char **argv, t_list **rows);
 t_list	*ft_get_map_rows(t_list **rows);
 int		ft_parsing_textures(t_list *rows, t_data *data);
 int		ft_parsing_map(t_list *rows, t_data *data);
+
+int	check_valid_rgb(char *str);
+int	set_rgb_colors(char *str);
+int	ft_check_proper_walls(char **map, t_data *data);
+int ft_find_largest_height(char **map);
+
+int ft_check_file_existence_wall(t_data *data);
+void    ft_check_direction_names(t_list *head, t_data *data);
 
 #endif

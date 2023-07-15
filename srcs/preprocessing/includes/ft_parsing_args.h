@@ -15,11 +15,14 @@
 
 # include <fcntl.h>
 # include "libft.h"
+# include <stdlib.h>
+# include <stdio.h>
 
-int	ft_check_args(int argc, char **argv);
-void    ft_get_rows(int fd);
-int ft_is_bad_row(char *str);
+int	    ft_check_args(int argc, char **argv);
+t_list    *ft_get_rows(int fd);
+int     ft_is_bad_row(char *str);
 void    ft_skip_space(char *str);
 void    ft_modify_row(char *str);
+
 
 #endif
