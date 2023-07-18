@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:31:58 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/13 18:31:31 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:11:38 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int    ft_rendering(t_data *data)
     ft_render_background(data, 0);
 
     ft_render_projection(data, ray_distances);
-    // ft_render_sprites(data, ray_distances);
+    ft_rendering_sprites(data, ray_distances);
     
     // ft_render_hand(data);
     // ft_rendering_minimap_circle(data);

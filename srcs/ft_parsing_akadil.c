@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:40:25 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/14 16:05:51 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/18 10:14:14 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,9 @@ void    ft_parsing_akadil(int argc, char **argv, t_data *data)
             {
                 data->player.x = j + 0.5;
                 data->player.y = i + 0.5;
-                data->angle = 270.0;
+                data->sprite_pos.x = j + 0.5 + 4;
+                data->sprite_pos.y = i + 0.5;
+                data->angle = 0.0;
                 checker = 1;
             }
             j++;
@@ -179,6 +181,9 @@ void    ft_parsing_akadil(int argc, char **argv, t_data *data)
     data->wall.south.addr = mlx_get_data_addr(data->wall.south.mlx_img, &data->wall.south.bpp, &data->wall.south.line_len, &data->wall.south.endian);
     data->wall.west.addr = mlx_get_data_addr(data->wall.west.mlx_img, &data->wall.west.bpp, &data->wall.west.line_len, &data->wall.west.endian);
     data->wall.east.addr = mlx_get_data_addr(data->wall.east.mlx_img, &data->wall.east.bpp, &data->wall.east.line_len, &data->wall.east.endian);
+
+    data->sprite.mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, "pics/barrel.xpm", &data->sprite.width, &data->sprite.height);
+    data->sprite.addr = mlx_get_data_addr(data->sprite.mlx_img, &data->sprite.bpp, &data->sprite.line_len, &data->sprite.endian);
 
     data->event.rotation_speed = 3;
     // int x, y;

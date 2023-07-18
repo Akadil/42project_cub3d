@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:14:59 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/14 15:47:00 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/17 12:54:53 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int main(int argc, char **argv)
 	/*	Initialize the map	*/
 	// init_game(&data, argv[1]);
 	
-	//ft_parsing_akadil(argc, argv, &data);
-	ft_parsing(argc, argv, &data);
+	ft_parsing_akadil(argc, argv, &data);
+	// ft_parsing(argc, argv, &data);
 	/*	Start rendering	*/
 	mlx_mouse_move(data.mlx_ptr, data.win_ptr, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 	mlx_mouse_hide(data.mlx_ptr, data.win_ptr);

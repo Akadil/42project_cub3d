@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rendering_sprites.c                                :+:      :+:    :+:   */
+/*   rendering_3d_object.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/13 11:53:01 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/18 11:01:00 by akalimol         ###   ########.fr       */
+/*   Created: 2023/07/18 11:01:35 by akalimol          #+#    #+#             */
+/*   Updated: 2023/07/18 11:14:29 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct_data.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include "includes/rendering_utils.h"
 
-
-void    ft_rendering_sprites(t_data *data, double ray_distances[WINDOW_WIDTH])
+void    ft_rendering_3d_object(t_data *data, double ray_distances[WINDOW_WIDTH])
 {
     t_vector    sprite;
     t_vector    sprite_p;
@@ -51,42 +47,4 @@ void    ft_rendering_sprites(t_data *data, double ray_distances[WINDOW_WIDTH])
     draw_end_y = (double)sprite_height / 2 + (double)(WINDOW_HEIGHT) / 2;
     if(draw_end_y >= WINDOW_HEIGHT)
         draw_end_y = WINDOW_HEIGHT - 1;
-
-    sprite_width = abs( (int) ((double)WINDOW_HEIGHT / sprite_p.y));
-    draw_start_x = -1.0 * sprite_width / 2 + screen_x;
-    if(draw_start_x < 0)
-        draw_start_x = 0;
-    draw_end_x = sprite_width / 2 + screen_x;
-    if(draw_end_x >= WINDOW_WIDTH)
-        draw_end_x = WINDOW_WIDTH - 1;
-
-    int	tex_x;
-    int	tex_y;
-    int color;
-    int pos;
-    // int d;
-    int y;
-
-    y = draw_start_y;
-    while (draw_start_x < draw_end_x)
-    {
-        // printf("%lf\n", ray_distances[draw_start_x]);
-        // tex_x = (int)(256 * (draw_start_x - (-1 * sprite_width / 2 + screen_x)) * data->sprite.width / sprite_width) / 256;
-        tex_x = (double)(2 * draw_start_x + sprite_width - 2 * screen_x) / 2 / sprite_width * data->sprite.width;
-        // printf("My tex_x is %d/%d\n", tex_x, data->sprite.width);
-        if(sprite_p.y > 0 && draw_start_x > 0 && draw_start_x < WINDOW_WIDTH && sprite_p.y < ray_distances[draw_start_x])
-        {
-            draw_start_y = y;
-			while (draw_start_y < draw_end_y)
-			{
-                tex_y = (2.0 * draw_start_y + sprite_height - WINDOW_HEIGHT) / 2 / sprite_height * data->sprite.height;
-				pos = (double)tex_y * data->sprite.line_len + (double)tex_x * (float)data->sprite.bpp / 8;
-				color = create_rgb((int)data->sprite.addr[pos], (int)data->sprite.addr[pos + 1], (int)data->sprite.addr[pos + 2]);
-                if (color != 0) 
-                    my_mlx_pixel_put(data, draw_start_x, draw_start_y, color);
-				draw_start_y++;
-			}
-		}
-		draw_start_x++;
-	}
 }

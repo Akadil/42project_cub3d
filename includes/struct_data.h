@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:19:18 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/15 17:35:19 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:09:31 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define WINDOW_HEIGHT 480
 # define WINDOW_WIDTH 640
-# define SPEED 0.015
+# define SPEED 0.1
 # define ROTATION 0.8
 # define PI 3.14
 
@@ -97,12 +97,14 @@ typedef struct s_data
 	void		*win_ptr;
 	t_img		img_win;
 	t_img		img_minimap;
+	t_img		sprite;
 
 	char		**map;
 
 	t_wall		wall;
 	t_event		event;
 	t_vector	player;
+	t_vector	sprite_pos;
 	t_view		view;
 	float		angle;
 }   			t_data;
