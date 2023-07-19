@@ -9,6 +9,7 @@ SRCS            =	ft_main.c \
 					rendering/rendering_background.c \
 					rendering/rendering_projection.c \
 					rendering/rendering_minimap.c \
+					rendering/rendering_3d_object.c \
 					rendering/rendering_sprites.c \
 					rendering/utils/rendering_utils.c \
 					rendering/react_to_event/react_to_event.c \

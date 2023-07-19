@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rendering.h                                        :+:      :+:    :+:   */
+/*   ft_render_projection.h                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 12:09:38 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/19 13:48:38 by akalimol         ###   ########.fr       */
+/*   Created: 2023/03/13 15:14:08 by akalimol          #+#    #+#             */
+/*   Updated: 2023/03/16 11:45:05 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDERING_H
-# define RENDERING_H
+#ifndef FT_RENDER_PROJECTION_H
+# define FT_RENDER_PROJECTION_H
 
-# include "rendering_utils.h"
-# include "mlx.h"
-# include "struct_data.h"
-# include <stdio.h>
+# include "ft_data.h"
 
-void	ft_react_to_event(t_data *data);
-void	ft_render_background(t_data *data, int color);
-void	ft_render_projection(t_data *data);
-void    ft_rendering_sprites(t_data *data);
+void	ft_set_x_y(t_data *data);
+void	ft_transform(t_data *data, int i, int j);
+void	ft_draw_line(t_data *data, int i, int j, int direct);
 
 #endif

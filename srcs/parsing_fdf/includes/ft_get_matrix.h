@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rendering.h                                        :+:      :+:    :+:   */
+/*   ft_get_matrix.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 12:09:38 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/19 13:48:38 by akalimol         ###   ########.fr       */
+/*   Created: 2023/03/11 18:31:02 by akalimol          #+#    #+#             */
+/*   Updated: 2023/03/16 16:21:03 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDERING_H
-# define RENDERING_H
+#ifndef FT_GET_MATRIX_H
+# define FT_GET_MATRIX_H
 
-# include "rendering_utils.h"
-# include "mlx.h"
-# include "struct_data.h"
+# include "ft_data.h"
+# include "ft_error.h"
+# include "ft_libft.h"
+# include <fcntl.h>
 # include <stdio.h>
+# include <stdlib.h>
 
-void	ft_react_to_event(t_data *data);
-void	ft_render_background(t_data *data, int color);
-void	ft_render_projection(t_data *data);
-void    ft_rendering_sprites(t_data *data);
+int		my_open(t_data *_my_data, char **_argv);
+t_list	*ft_get_rows(t_data *data, int fd);
+void	ft_init_matrix(t_data *data, t_list *rows, int fd);
+void	ft_fill_matrix(t_data *data, t_list *head, int fd);
 
 #endif

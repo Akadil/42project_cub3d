@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:19:18 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/17 17:09:31 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/19 19:34:55 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,69 @@
 
 # define WINDOW_HEIGHT 480
 # define WINDOW_WIDTH 640
-# define SPEED 0.1
-# define ROTATION 0.8
+# define SPEED 0.01
+# define ROTATION 0.4
 # define PI 3.14
+
+typedef struct s_img
+{
+	void		*mlx_img;
+	char		*name;
+	char		*addr;
+	int			bpp;
+	int			line_len;
+	int			endian;
+	int			width;
+	int			height;
+}				t_img;
+
+typedef struct s_node
+{
+	float		x;
+	float		y;
+	int			z;
+	int			color;
+	int			x_p;
+	int			y_p;
+}				t_node;
+
+typedef struct s_matrix
+{
+	t_node		**node;
+	int			height;
+	int			width;
+	int			z_max;
+	int			z_min;
+}				t_matrix;
+
+typedef struct s_param
+{
+	int			alpha;
+	int			beta;
+	int			theta;
+	double			grid;
+	double			attitude;
+	int			x_offset;
+	int			y_offset;
+	int			color;
+}				t_param;
 
 typedef struct s_vector
 {
     double  x;
     double  y;
-}   t_vector;
+}   		t_vector;
+
+typedef struct s_fdf
+{
+	t_img		img;
+	t_matrix	mtrx;
+	t_param		param;
+	double		length;
+	t_vector	pos;
+	t_vector	pos_p;
+}				t_fdf;
+
 
 typedef struct s_color
 {
@@ -43,19 +97,6 @@ typedef struct s_floor_ceil
 	char	*name;
 	int		color;
 }	t_floor_ceil;
-
-
-typedef struct s_img
-{
-	void		*mlx_img;
-	char		*name;
-	char		*addr;
-	int			bpp;
-	int			line_len;
-	int			endian;
-	int			width;
-	int			height;
-}				t_img;
 
 typedef struct s_wall
 {
@@ -100,7 +141,9 @@ typedef struct s_data
 	t_img		sprite;
 
 	char		**map;
+	double		*rays;
 
+	t_fdf		fdf;
 	t_wall		wall;
 	t_event		event;
 	t_vector	player;

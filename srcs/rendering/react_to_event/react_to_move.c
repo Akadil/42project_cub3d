@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 15:17:41 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/11 15:33:30 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/19 19:08:00 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_move_forward(t_data *data)
 
 	/*	Move by x if available	*/
 	x_pos_new = data->player.x + data->view.dir.x * SPEED;
-	if (data->map[y_pos][(int)(x_pos_new)] != '1')
+	if (data->map[y_pos][(int)(x_pos)] != '1')
 		data->player.x = x_pos_new;
 
 	/*	Move by y if available	*/

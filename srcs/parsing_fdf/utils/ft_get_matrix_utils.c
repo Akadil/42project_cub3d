@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rendering.h                                        :+:      :+:    :+:   */
+/*   ft_get_matrix_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 12:09:38 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/19 13:48:38 by akalimol         ###   ########.fr       */
+/*   Created: 2023/03/11 19:05:51 by akalimol          #+#    #+#             */
+/*   Updated: 2023/03/16 16:13:40 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDERING_H
-# define RENDERING_H
+#include "ft_data.h"
+#include "ft_error.h"
+#include <fcntl.h>
 
-# include "rendering_utils.h"
-# include "mlx.h"
-# include "struct_data.h"
-# include <stdio.h>
+int	my_open(t_data *_my_data, char **_argv)
+{
+	int	fd;
 
-void	ft_react_to_event(t_data *data);
-void	ft_render_background(t_data *data, int color);
-void	ft_render_projection(t_data *data);
-void    ft_rendering_sprites(t_data *data);
-
-#endif
+	fd = open(_argv[1], O_RDONLY);
+	if (fd == -1)
+		ft_perror_clean_exit(_my_data, _argv[1]);
+	return (fd);
+}

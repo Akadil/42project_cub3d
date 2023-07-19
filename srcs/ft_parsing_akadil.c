@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:40:25 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/18 10:14:14 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/19 13:49:31 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 #include <stdlib.h>
 #include "mlx.h"
 #include <math.h>
+
+void	ft_fill_matrix(t_fdf *data, t_list *rows);
+t_list	*ft_get_rows(t_fdf *data, int fd);
 
 void    ft_parsing_akadil(int argc, char **argv, t_data *data)
 {
@@ -186,6 +189,22 @@ void    ft_parsing_akadil(int argc, char **argv, t_data *data)
     data->sprite.addr = mlx_get_data_addr(data->sprite.mlx_img, &data->sprite.bpp, &data->sprite.line_len, &data->sprite.endian);
 
     data->event.rotation_speed = 3;
+    data->event.move_fw = false;
+    data->event.move_bw = false;
+    data->rays = (double *)ft_calloc(sizeof(double), WINDOW_WIDTH);
+
+    t_list  *rows;
+
+	fd = open("fdf_maps/42.fdf", O_RDONLY);
+	rows = ft_get_rows(&data->fdf, fd);
+    close(fd);
+	ft_fill_matrix(&data->fdf, rows);
+	ft_lstclear(&rows, &free);
+
+
+
+
+
     // int x, y;
     // for (y = 0; y < data->wall.north.height; y++) {
     //     for (x = 0; x < data->wall.north.width; x++) {
@@ -233,3 +252,158 @@ t_list    *ft_parsing_akadil_test_parsing(int argc, char **argv, t_data *data)
     close (fd); 
     return (head);
 }
+
+t_list	*ft_get_rows(t_fdf *data, int fd)
+{
+	t_list	*head;
+	t_list	*temp;
+	char	*str;
+
+	head = NULL;
+	str = get_next_line(fd, 0);
+	while (str)
+	{
+		temp = ft_lstnew(str, 0);
+		if (!temp)
+			printf("Error!\n");
+		ft_lstadd_back(&head, temp);
+		str = get_next_line(fd, 0);
+	}
+	get_next_line(fd, 1);
+	if (!head)
+		printf("Error!\n");
+	data->mtrx.height = ft_lstsize(head);
+	return (head);
+}
+
+void	ft_find_width(t_fdf *data, t_list *rows)
+{
+	char	*line;
+	int		width;
+	int		i;
+	int		prev;
+
+	i = 0;
+	width = 0;
+	prev = 1;
+	line = rows->content;
+	while (line[i])
+	{
+		if (line[i] == ' ' && prev == 0)
+		{
+			width++;
+			prev = 1;
+		}
+		else if (line[i] != ' ')
+			prev = 0;
+		i++;
+	}
+	width++;
+	data->mtrx.width = width;
+}
+
+void	ft_free_d_array_char(char **trash)
+{
+	int	i;
+
+	i = 0;
+	while (trash[i])
+	{
+		free(trash[i]);
+		i++;
+	}
+	free(trash);
+}
+
+void	ft_set_z_maximas(t_fdf *data, int i, int j)
+{
+	if (data->mtrx.node[i][j].z > data->mtrx.z_max)
+		data->mtrx.z_max = data->mtrx.node[i][j].z;
+	if (data->mtrx.node[i][j].z < data->mtrx.z_min)
+		data->mtrx.z_min = data->mtrx.node[i][j].z;
+}
+
+
+int	hex_to_dec(char *hex_string)
+{
+	int		decimal_value;
+	int		i;
+	int		digit_value;
+	char	c;
+
+	decimal_value = 0;
+	i = 0;
+	while (hex_string[i] != '\0')
+	{
+		c = hex_string[i];
+		if (c >= '0' && c <= '9')
+			digit_value = c - '0';
+		else if (c >= 'A' && c <= 'F')
+			digit_value = c - 'A' + 10;
+		else if (c >= 'a' && c <= 'f')
+			digit_value = c - 'a' + 10;
+		decimal_value = decimal_value * 16 + digit_value;
+		i++;
+	}
+	return (decimal_value);
+}
+
+void	ft_init_matrix(t_fdf *data, t_list *rows);
+
+void	ft_fill_matrix(t_fdf *data, t_list *rows)
+{
+	char	**line;
+	int		i;
+	int		j;
+
+	ft_init_matrix(data, rows);
+	i = -1;
+	while (rows && ++i >= 0)
+	{
+		line = ft_split(rows->content, ' ');
+		if (!line)
+			printf("Error!\n");
+		j = -1;
+		while (++j < data->mtrx.width)
+		{
+			data->mtrx.node[i][j].z = ft_atoi(line[j]);
+			ft_set_z_maximas(data, i, j);
+			if (ft_strchr(line[j], ','))
+				data->mtrx.node[i][j].color = hex_to_dec(ft_strchr(line[j], ',') + 1);
+			else
+				data->mtrx.node[i][j].color = -1;
+		}
+		ft_free_d_array_char(line);
+		rows = rows->next;
+	}
+}
+
+void	ft_init_matrix(t_fdf *data, t_list *rows)
+{
+	t_node	**node;
+	int		i;
+	int		j;
+
+	ft_find_width(data, rows);
+	node = (t_node **)malloc(sizeof(t_node *) * data->mtrx.height);
+	if (!node)
+        printf("Error!\n");
+	i = -1;
+	while (++i < data->mtrx.height)
+	{
+		node[i] = (t_node *)malloc(sizeof(t_node) * data->mtrx.width);
+		if (!node[i])
+			printf("Error!\n");
+		j = 0;
+		while (j < data->mtrx.width)
+		{
+			node[i][j].x = i - (float)(data->mtrx.height - 1) / 2;
+			node[i][j].y = j - (float)(data->mtrx.width - 1) / 2;
+			j++;
+		}
+	}
+	data->mtrx.node = node;
+	data->mtrx.z_max = -2147483648;
+	data->mtrx.z_min = 2147483647;
+}
+

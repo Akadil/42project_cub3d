@@ -6,13 +6,13 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:52:13 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/17 16:11:29 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/19 13:49:20 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/rendering_projection.h"
 
-void    ft_render_projection(t_data *data, double ray_distances[WINDOW_WIDTH])
+void    ft_render_projection(t_data *data)
 {
     t_ray   ray;
     int x;
@@ -37,7 +37,7 @@ void    ft_render_projection(t_data *data, double ray_distances[WINDOW_WIDTH])
             }
         }
         ray.distance_perp = ft_find_dist_perp(ray);
-        ray_distances[x] = ray.distance_perp;
+        data->rays[x] = ray.distance_perp;
         ft_draw_column(x, ray, data);
         x++;
     }

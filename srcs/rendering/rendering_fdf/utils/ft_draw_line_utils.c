@@ -1,26 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rendering.h                                        :+:      :+:    :+:   */
+/*   ft_draw_line_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 12:09:38 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/19 13:48:38 by akalimol         ###   ########.fr       */
+/*   Created: 2023/03/13 20:18:17 by akalimol          #+#    #+#             */
+/*   Updated: 2023/03/13 20:52:42 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDERING_H
-# define RENDERING_H
+#include "ft_data.h"
 
-# include "rendering_utils.h"
-# include "mlx.h"
-# include "struct_data.h"
-# include <stdio.h>
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
-void	ft_react_to_event(t_data *data);
-void	ft_render_background(t_data *data, int color);
-void	ft_render_projection(t_data *data);
-void    ft_rendering_sprites(t_data *data);
+int	ft_abs(int a, int b)
+{
+	if (a - b < 0)
+		return (b - a);
+	else
+		return (a - b);
+}
 
-#endif
+int	ft_slope(int a, int b)
+{
+	if (a < b)
+		return (1);
+	else
+		return (-1);
+}
+
+void	ft_pixel(t_data *data, int x, int y, int color)
+{
+	my_mlx_pixel_put(data, x, y, color);
+}
