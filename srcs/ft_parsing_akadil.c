@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:40:25 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/19 13:49:31 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/20 16:59:46 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ void    ft_parsing_akadil(int argc, char **argv, t_data *data)
 	ft_fill_matrix(&data->fdf, rows);
 	ft_lstclear(&rows, &free);
 
-
+    data->fdf.param.theta = 0;
 
 
 

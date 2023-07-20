@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 11:01:35 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/19 20:00:29 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/20 18:12:59 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void    ft_rendering_3d_object(t_data *data)
     /*  Transformed position    */
     sprite_p.x = inv_det * (data->view.dir.y * sprite.x - data->view.dir.x * sprite.y);
     sprite_p.y = inv_det * (-1 * data->view.plane.y * sprite.x + data->view.plane.x * sprite.y);
-	if (sprite_p.y <= 0)
+	if (sprite_p.y <= 1)
     	return ;
 	// printf("Initially %lf\n", sprite_p.y);
 
@@ -65,14 +65,14 @@ void    ft_rendering_3d_object(t_data *data)
     draw_end_x = sprite_width / 2 + screen_x;
 
     ft_set_params(data, draw_end_x - draw_start_x, draw_end_y - draw_start_y);
-    if (draw_start_y < 0) 
-        draw_start_y = 0;
-    if (draw_end_y >= WINDOW_HEIGHT)
-        draw_end_y = WINDOW_HEIGHT - 1;
-    if (draw_start_x < 0)
-        draw_start_x = 0;
-    if (draw_end_x >= WINDOW_WIDTH)
-	draw_end_x = WINDOW_WIDTH - 1;
+    // if (draw_start_y < 0) 
+    //     draw_start_y = 0;
+    // if (draw_end_y >= WINDOW_HEIGHT)
+    //     draw_end_y = WINDOW_HEIGHT - 1;
+    // if (draw_start_x < 0)
+    //     draw_start_x = 0;
+    // if (draw_end_x >= WINDOW_WIDTH)
+	// 	draw_end_x = WINDOW_WIDTH - 1;
     data->fdf.length = sprite_p.y;
 	data->fdf.pos.x = sprite.x;
 	data->fdf.pos.y = sprite.y;
@@ -90,6 +90,7 @@ void	ft_transform(t_fdf *data, int i, int j)
 {
 	double	x_p;
 	double	y_p;
+	double	z_p;
 	double		x;
 	double		y;
 	double		z;
@@ -98,10 +99,19 @@ void	ft_transform(t_fdf *data, int i, int j)
 	y = (double)data->mtrx.node[i][j].y * data->param.grid;
 	z = (double)data->mtrx.node[i][j].z * data->param.attitude;
 
+	z_p = 0.0;
+	z_p -= x * sin(ft_rad(data->param.alpha));
+	z_p += y * sin(ft_rad(data->param.theta)) * cos(ft_rad(data->param.alpha));
+	z_p += z * cos(ft_rad(data->param.theta)) * cos(ft_rad(data->param.alpha));
+
 	x_p = 0.0;
 	x_p += x * cos(ft_rad(data->param.theta)) * cos(ft_rad(data->param.beta));
 	x_p -= z * sin(ft_rad(data->param.beta));
 	x_p -= y * sin(ft_rad(data->param.theta)) * cos(ft_rad(data->param.beta));
+	// if (z_p == 0.0)
+	// 	x_p = 2147483647;
+	// else
+	// 	x_p = x_p / z_p / 10;
 	x_p += data->param.x_offset;
 
 	y_p = 0.0;
@@ -112,8 +122,14 @@ void	ft_transform(t_fdf *data, int i, int j)
 	y_p -= y * sin(ft_rad(data->param.theta)) * sin(ft_rad(data->param.beta))
 		* sin(ft_rad(data->param.alpha));
 	y_p += z * cos(ft_rad(data->param.beta)) * sin(ft_rad(data->param.alpha));
+	// if (z_p == 0.0)
+	// 	y_p = 2147483647;
+	// else
+	// 	y_p =  y_p / z_p / 10;
 	y_p += data->param.y_offset;
-	
+
+
+	// printf("%lf %lf %lf\n", x_p, y_p, z_p);
 	data->mtrx.node[i][j].x_p = (int)x_p;
 	data->mtrx.node[i][j].y_p = (int)y_p;
 }
@@ -202,6 +218,36 @@ void	ft_draw_line(t_data *data, int i, int j, int direct, int x_offset)
 		p2.y_p = data->fdf.mtrx.node[i + 1][j].y_p;
 	}
 	bresenhams(data, p1, p2, x_offset);
+	// if (direct == 1)
+	// {
+	// 	p2.i = i;
+	// 	p2.j = j + 1;
+	// 	p2.x_p = data->fdf.mtrx.node[i][j + 1].x_p + 1;
+	// 	p2.y_p = data->fdf.mtrx.node[i][j + 1].y_p + 1;
+	// }
+	// else
+	// {
+	// 	p2.i = i + 1;
+	// 	p2.j = j;
+	// 	p2.x_p = data->fdf.mtrx.node[i + 1][j].x_p + 1;
+	// 	p2.y_p = data->fdf.mtrx.node[i + 1][j].y_p + 1;
+	// }
+	// bresenhams(data, p1, p2, x_offset);
+	// if (direct == 1)
+	// {
+	// 	p2.i = i;
+	// 	p2.j = j + 1;
+	// 	p2.x_p = data->fdf.mtrx.node[i][j + 1].x_p - 1;
+	// 	p2.y_p = data->fdf.mtrx.node[i][j + 1].y_p - 1;
+	// }
+	// else
+	// {
+	// 	p2.i = i + 1;
+	// 	p2.j = j;
+	// 	p2.x_p = data->fdf.mtrx.node[i + 1][j].x_p - 1;
+	// 	p2.y_p = data->fdf.mtrx.node[i + 1][j].y_p - 1;
+	// }
+	// bresenhams(data, p1, p2, x_offset);
 }
 
 int	create_rgb2(int r, int g, int b)
@@ -278,7 +324,35 @@ void	bresenhams(t_data *data, t_point p1, t_point p2, int x_offset)
 	while (p.x_p != p2.x_p || p.y_p != p2.y_p)
 	{
 		// ft_pixel(data, p.x_p, p.y_p, ft_color(p1, p2, p));
-        ft_pixel(data, p.x_p, p.y_p, ft_color(p1, p2, p), x_offset);
+        ft_pixel(data, p.x_p + 0, p.y_p + 0, ft_color(p1, p2, p), x_offset);
+		ft_pixel(data, p.x_p + 0, p.y_p + 1, ft_color(p1, p2, p), x_offset);
+		ft_pixel(data, p.x_p + 0, p.y_p + 2, ft_color(p1, p2, p), x_offset);
+		// ft_pixel(data, p.x_p + 0, p.y_p - 1, ft_color(p1, p2, p), x_offset);
+		// ft_pixel(data, p.x_p + 0, p.y_p - 2, ft_color(p1, p2, p), x_offset);
+
+		ft_pixel(data, p.x_p + 1, p.y_p + 0, ft_color(p1, p2, p), x_offset);
+		ft_pixel(data, p.x_p + 1, p.y_p + 1, ft_color(p1, p2, p), x_offset);
+		ft_pixel(data, p.x_p + 1, p.y_p + 2, ft_color(p1, p2, p), x_offset);
+		// ft_pixel(data, p.x_p + 1, p.y_p - 1, ft_color(p1, p2, p), x_offset);
+		// ft_pixel(data, p.x_p + 1, p.y_p - 2, ft_color(p1, p2, p), x_offset);
+
+		ft_pixel(data, p.x_p - 1, p.y_p + 0, ft_color(p1, p2, p), x_offset);
+		ft_pixel(data, p.x_p - 1, p.y_p + 1, ft_color(p1, p2, p), x_offset);
+		ft_pixel(data, p.x_p - 1, p.y_p + 2, ft_color(p1, p2, p), x_offset);
+		// ft_pixel(data, p.x_p - 1, p.y_p - 1, ft_color(p1, p2, p), x_offset);
+		// ft_pixel(data, p.x_p - 1, p.y_p - 2, ft_color(p1, p2, p), x_offset);
+
+		// ft_pixel(data, p.x_p + 2, p.y_p + 0, ft_color(p1, p2, p), x_offset);
+		// ft_pixel(data, p.x_p + 2, p.y_p + 1, ft_color(p1, p2, p), x_offset);
+		// ft_pixel(data, p.x_p + 2, p.y_p + 2, ft_color(p1, p2, p), x_offset);
+		// ft_pixel(data, p.x_p + 2, p.y_p - 1, ft_color(p1, p2, p), x_offset);
+		// ft_pixel(data, p.x_p + 2, p.y_p - 2, ft_color(p1, p2, p), x_offset);
+
+		// ft_pixel(data, p.x_p - 2, p.y_p + 0, ft_color(p1, p2, p), x_offset);
+		// ft_pixel(data, p.x_p - 2, p.y_p + 1, ft_color(p1, p2, p), x_offset);
+		// ft_pixel(data, p.x_p - 2, p.y_p + 2, ft_color(p1, p2, p), x_offset);
+		// ft_pixel(data, p.x_p - 2, p.y_p - 1, ft_color(p1, p2, p), x_offset);
+		// ft_pixel(data, p.x_p - 2, p.y_p - 2, ft_color(p1, p2, p), x_offset);
 		e = 2 * err;
 		if (e > -1 * ft_abs(p2.y_p, p1.y_p))
 		{
@@ -397,11 +471,15 @@ double calculate_angle(double x, double y) {
 void	ft_set_params(t_data *my_data, int width, int height)
 {
 	// printf("%lf\n", my_data->fdf.pos_p.y);
-	my_data->fdf.param.alpha = 90 - 40 * (1.0 / fabs(my_data->fdf.pos_p.y));
+	my_data->fdf.param.alpha = 90 - 30 * (1.0 / (fabs(my_data->fdf.pos_p.y) + 1));
 	// my_data->fdf.param.alpha = 50;
 	my_data->fdf.param.beta = 180;
 	// printf("Degree: %lf, Pos: %lf and %lf\n", atan(my_data->fdf.pos.y / my_data->fdf.pos.x), my_data->fdf.pos.x, my_data->fdf.pos.y);
+	// my_data->fdf.param.theta = calculate_angle(my_data->fdf.pos.x, my_data->fdf.pos.y);
+	// my_data->fdf.param.theta = my_data->angle;
+	// my_data->fdf.param.theta = calculate_angle(my_data->fdf.pos.x, my_data->fdf.pos.y) + my_data->angle;
 	my_data->fdf.param.theta = calculate_angle(my_data->fdf.pos.x, my_data->fdf.pos.y);
+	// my_data->fdf.param.theta += 1;
 	// printf("My degree is %d, Pos: %lf and %lf\n", my_data->fdf.param.theta, my_data->fdf.pos.x, my_data->fdf.pos.y);
 	if (my_data->fdf.param.theta < 0)
 		my_data->fdf.param.theta += 360;
@@ -410,6 +488,6 @@ void	ft_set_params(t_data *my_data, int width, int height)
 	my_data->fdf.param.x_offset = width / 2;
 	my_data->fdf.param.y_offset = height / 2;
 	my_data->fdf.param.grid = ft_find_grid(&my_data->fdf, width) * 3;
-	my_data->fdf.param.attitude = ft_find_attitude(&my_data->fdf, height) * 2;
+	my_data->fdf.param.attitude = ft_find_attitude(&my_data->fdf, height);
 }
 

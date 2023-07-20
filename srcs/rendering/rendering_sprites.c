@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 11:53:01 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/18 19:03:13 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/20 17:20:10 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "includes/rendering_utils.h"
 
 
-void    ft_rendering_sprites(t_data *data, double ray_distances[WINDOW_WIDTH])
+void    ft_rendering_sprites(t_data *data)
 {
     t_vector    sprite;
     t_vector    sprite_p;
@@ -74,7 +74,7 @@ void    ft_rendering_sprites(t_data *data, double ray_distances[WINDOW_WIDTH])
         // tex_x = (int)(256 * (draw_start_x - (-1 * sprite_width / 2 + screen_x)) * data->sprite.width / sprite_width) / 256;
         tex_x = (double)(2 * draw_start_x + sprite_width - 2 * screen_x) / 2 / sprite_width * data->sprite.width;
         // printf("My tex_x is %d/%d\n", tex_x, data->sprite.width);
-        if(sprite_p.y > 0 && draw_start_x > 0 && draw_start_x < WINDOW_WIDTH && sprite_p.y < ray_distances[draw_start_x])
+        if(sprite_p.y > 0 && draw_start_x > 0 && draw_start_x < WINDOW_WIDTH && sprite_p.y < data->rays[draw_start_x])
         {
             draw_start_y = y;
 			while (draw_start_y < draw_end_y)
