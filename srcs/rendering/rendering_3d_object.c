@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 11:01:35 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/21 12:22:35 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/21 14:51:31 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,20 +326,20 @@ void	bresenhams(t_data *data, t_point p1, t_point p2, int x_offset)
 		// ft_pixel(data, p.x_p, p.y_p, ft_color(p1, p2, p));
         ft_pixel(data, p.x_p + 0, p.y_p + 0, ft_color(p1, p2, p), x_offset);
 		ft_pixel(data, p.x_p + 0, p.y_p + 1, ft_color(p1, p2, p), x_offset);
-		ft_pixel(data, p.x_p + 0, p.y_p + 2, ft_color(p1, p2, p), x_offset);
 		// ft_pixel(data, p.x_p + 0, p.y_p - 1, ft_color(p1, p2, p), x_offset);
+		// ft_pixel(data, p.x_p + 0, p.y_p + 2, ft_color(p1, p2, p), x_offset);
 		// ft_pixel(data, p.x_p + 0, p.y_p - 2, ft_color(p1, p2, p), x_offset);
 
 		ft_pixel(data, p.x_p + 1, p.y_p + 0, ft_color(p1, p2, p), x_offset);
 		ft_pixel(data, p.x_p + 1, p.y_p + 1, ft_color(p1, p2, p), x_offset);
-		ft_pixel(data, p.x_p + 1, p.y_p + 2, ft_color(p1, p2, p), x_offset);
 		// ft_pixel(data, p.x_p + 1, p.y_p - 1, ft_color(p1, p2, p), x_offset);
+		// ft_pixel(data, p.x_p + 1, p.y_p + 2, ft_color(p1, p2, p), x_offset);
 		// ft_pixel(data, p.x_p + 1, p.y_p - 2, ft_color(p1, p2, p), x_offset);
 
-		ft_pixel(data, p.x_p - 1, p.y_p + 0, ft_color(p1, p2, p), x_offset);
-		ft_pixel(data, p.x_p - 1, p.y_p + 1, ft_color(p1, p2, p), x_offset);
-		ft_pixel(data, p.x_p - 1, p.y_p + 2, ft_color(p1, p2, p), x_offset);
+		// ft_pixel(data, p.x_p - 1, p.y_p + 0, ft_color(p1, p2, p), x_offset);
+		// ft_pixel(data, p.x_p - 1, p.y_p + 1, ft_color(p1, p2, p), x_offset);
 		// ft_pixel(data, p.x_p - 1, p.y_p - 1, ft_color(p1, p2, p), x_offset);
+		// ft_pixel(data, p.x_p - 1, p.y_p + 2, ft_color(p1, p2, p), x_offset);
 		// ft_pixel(data, p.x_p - 1, p.y_p - 2, ft_color(p1, p2, p), x_offset);
 
 		// ft_pixel(data, p.x_p + 2, p.y_p + 0, ft_color(p1, p2, p), x_offset);
@@ -455,14 +455,17 @@ int	ft_find_attitude(t_fdf *my_data, int height)
 
 double calculate_angle(double x, double y) {
     // Calculate the angle in radians using arctan2 function
-    double angle = atan2(y, x);
+    double my_angle = atan2(y, x);
 
     // Convert the angle from radians to degrees
-    double angleDegrees = angle * (180.0 / PI);
+    double angleDegrees = my_angle * (180.0 / PI);
 
     // Ensure the angle is positive
     if (angleDegrees < 0) {
         angleDegrees += 360.0;
+    }
+	if (angleDegrees > 359) {
+        angleDegrees -= 360.0;
     }
 
     return angleDegrees;
@@ -478,8 +481,8 @@ void	ft_set_params(t_data *my_data, int width, int height)
 	// my_data->fdf.param.theta = calculate_angle(my_data->fdf.pos.x, my_data->fdf.pos.y);
 	// my_data->fdf.param.theta = my_data->angle;
 	// my_data->fdf.param.theta = calculate_angle(my_data->fdf.pos.x, my_data->fdf.pos.y) + my_data->angle;
-	// my_data->fdf.param.theta = calculate_angle(my_data->fdf.pos.x, my_data->fdf.pos.y);
-	my_data->fdf.param.theta += 1;
+	my_data->fdf.param.theta = calculate_angle(my_data->fdf.pos.x, my_data->fdf.pos.y);
+	// my_data->fdf.param.theta += 1;
 	// printf("My degree is %d, Pos: %lf and %lf\n", my_data->fdf.param.theta, my_data->fdf.pos.x, my_data->fdf.pos.y);
 	if (my_data->fdf.param.theta < 0)
 		my_data->fdf.param.theta += 360;

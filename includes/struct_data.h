@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:19:18 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/20 16:57:50 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/21 14:37:18 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ typedef struct s_data
 	t_vector	player;
 	t_vector	sprite_pos;
 	t_view		view;
-	float		angle;
+	double		angle;
 }   			t_data;
 
 #endif
