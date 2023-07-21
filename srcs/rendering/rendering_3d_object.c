@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 11:01:35 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/20 18:12:59 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/21 12:22:35 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -478,8 +478,8 @@ void	ft_set_params(t_data *my_data, int width, int height)
 	// my_data->fdf.param.theta = calculate_angle(my_data->fdf.pos.x, my_data->fdf.pos.y);
 	// my_data->fdf.param.theta = my_data->angle;
 	// my_data->fdf.param.theta = calculate_angle(my_data->fdf.pos.x, my_data->fdf.pos.y) + my_data->angle;
-	my_data->fdf.param.theta = calculate_angle(my_data->fdf.pos.x, my_data->fdf.pos.y);
-	// my_data->fdf.param.theta += 1;
+	// my_data->fdf.param.theta = calculate_angle(my_data->fdf.pos.x, my_data->fdf.pos.y);
+	my_data->fdf.param.theta += 1;
 	// printf("My degree is %d, Pos: %lf and %lf\n", my_data->fdf.param.theta, my_data->fdf.pos.x, my_data->fdf.pos.y);
 	if (my_data->fdf.param.theta < 0)
 		my_data->fdf.param.theta += 360;

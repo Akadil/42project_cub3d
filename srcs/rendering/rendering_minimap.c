@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:10:02 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/18 17:44:17 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/21 12:28:17 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,20 +105,20 @@ void    ft_draw_player(t_data *data)
     }
     player.y = (double)WINDOW_HEIGHT / 4.0 * 3.0 + data->player.y * 5.0;
     player.x = (double)WINDOW_WIDTH / 4.0 * 3.0 + data->player.x * 5.0;
-    map_ray.x = player.x + data->view.dir.x * 5;
-    map_ray.y = player.y + data->view.dir.y * 5;
+    map_ray.x = player.x + data->view.dir.x * 5 * data->rays[WINDOW_WIDTH / 2];
+    map_ray.y = player.y + data->view.dir.y * 5 * data->rays[WINDOW_WIDTH / 2];
     bresenhams2(data, &player, &map_ray);
-    map_ray.x = player.x + data->view.dir.x * 5 + data->view.plane.x * 3;
-    map_ray.y = player.y + data->view.dir.y * 5 + data->view.plane.y * 3;
+    map_ray.x = player.x + (data->view.dir.x * 5 + data->view.plane.x * 3) * data->rays[WINDOW_WIDTH - 1];
+    map_ray.y = player.y + (data->view.dir.y * 5 + data->view.plane.y * 3) * data->rays[WINDOW_WIDTH - 1];
     bresenhams2(data, &player, &map_ray);
-    map_ray.x = player.x + data->view.dir.x * 5 - data->view.plane.x * 3;
-    map_ray.y = player.y + data->view.dir.y * 5 - data->view.plane.y * 3;
+    map_ray.x = player.x + (data->view.dir.x * 5 - data->view.plane.x * 3) * data->rays[0];
+    map_ray.y = player.y + (data->view.dir.y * 5 - data->view.plane.y * 3) * data->rays[0];
     bresenhams2(data, &player, &map_ray);
-    map_ray.x = player.x + data->view.dir.x * 5 + data->view.plane.x * 1.5;
-    map_ray.y = player.y + data->view.dir.y * 5 + data->view.plane.y * 1.5;
+    map_ray.x = player.x + (data->view.dir.x * 5 + data->view.plane.x * 1.5) * data->rays[WINDOW_WIDTH / 4 * 3];
+    map_ray.y = player.y + (data->view.dir.y * 5 + data->view.plane.y * 1.5) * data->rays[WINDOW_WIDTH / 4 * 3];
     bresenhams2(data, &player, &map_ray);
-    map_ray.x = player.x + data->view.dir.x * 5 - data->view.plane.x * 1.5;
-    map_ray.y = player.y + data->view.dir.y * 5 - data->view.plane.y * 1.5;
+    map_ray.x = player.x + (data->view.dir.x * 5 - data->view.plane.x * 1.5) * data->rays[WINDOW_WIDTH / 4];
+    map_ray.y = player.y + (data->view.dir.y * 5 - data->view.plane.y * 1.5) * data->rays[WINDOW_WIDTH / 4];
     bresenhams2(data, &player, &map_ray);
 }
 
