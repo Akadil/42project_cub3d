@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:37:14 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/18 21:17:56 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/28 20:24:19 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ int     ft_key_press(int keysym, t_data *data)
         mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 		data->win_ptr = NULL;
     }
-    if (keysym == 'w')
+    else if (keysym == 'w')
         data->event.move_fw = true;
-    if (keysym == 's')
+    else if (keysym == 's')
         data->event.move_bw = true;
-    if (keysym == 'a')
+    else if (keysym == 'a')
         data->event.move_lf = true;
-    if (keysym == 'd')
+    else if (keysym == 'd')
         data->event.move_rg = true;
-    if (keysym == 'h')
+    else if (keysym == 65361)
         data->event.rotate_lf = true;
-    if (keysym == 'j')
+    else if (keysym == 65363)
         data->event.rotate_rg = true;
     return (0);
 }
@@ -49,9 +49,9 @@ int     ft_key_release(int keysym, t_data *data)
         data->event.move_lf = false;
     if (keysym == 'd')
         data->event.move_rg = false;
-    if (keysym == 'h')
+    if (keysym == 65361)
         data->event.rotate_lf = false;
-    if (keysym == 'j')
+    if (keysym == 65363)
         data->event.rotate_rg = false;
     return (0);
 }

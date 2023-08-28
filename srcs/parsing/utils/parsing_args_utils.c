@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parsing_args_utils.c                            :+:      :+:    :+:   */
+/*   parsing_args_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aseisenb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:19:47 by aseisenb          #+#    #+#             */
-/*   Updated: 2023/07/14 17:19:51 by aseisenb         ###   ########.fr       */
+/*   Updated: 2023/08/28 19:31:34 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/ft_parsing_args.h"
 #include "libft.h"
 
 int	ft_isspace_alt(char c)
 {
 	if (c == ' ' || c == '\f')
-		return (1);
+		return (0);
 	if (c == '\r' || c == '\t' || c == '\v')
-		return (1);
-	return (0);
+		return (0);
+	return (-1);
 }
 
 int ft_is_bad_row(char *str)
@@ -29,8 +28,8 @@ int ft_is_bad_row(char *str)
     i = 0;
     while (str[i] && ft_isspace(str[i]) == 1)
         i++;
-    if (!str[i])
-        return (1);
+    if (str[i] == '\0' || str[i] == '\n')
+        return (-1);
     return (0);
 }
 
@@ -41,9 +40,9 @@ void    ft_skip_space(char *str)
 
     /*  1st part - remove beginning */
     i = 0;
-    while (str[i] && ft_isspace_alt(str[i]) == 1)
+    while (str[i] && ft_isspace_alt(str[i]) == 0)
         i++;
-    len = ft_strlcpy(str, str + i, ft_strlen(str));
+    len = ft_strlcpy(str, str + i, ft_strlen(str) + 1);
     i = 0;
     while (str[len + i])
     {
@@ -62,7 +61,7 @@ void    ft_modify_row(char *str)
     // str = "f             123/345/654            "
 
     i = 0;
-    while (ft_isspace_alt(str[i]) == 0)
+    while (str[i] && ft_isspace_alt(str[i]) != 0)
         i++;
     i++;
     // str + i = "            123/345/654            "
@@ -70,7 +69,7 @@ void    ft_modify_row(char *str)
     // str + i = "123/345/654            "
     // str = "f 123/345/654            "
     j = 0;
-    while (ft_isspace_alt((str + i)[j]) == 0)
+    while ((str + i)[j] && ft_isspace_alt((str + i)[j]) != 0)
         j++;
     // str + i + j = "            \n"
     ft_skip_space(str + i + j);

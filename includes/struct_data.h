@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:19:18 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/21 14:37:18 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/28 16:23:27 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # define WINDOW_HEIGHT 480
 # define WINDOW_WIDTH 640
-# define SPEED 0.07
-# define ROTATION 0.4
+# define SPEED 0.03
+# define ROTATION 0.2
 # define PI 3.14
 
 typedef struct s_img
@@ -137,7 +137,6 @@ typedef struct s_data
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_img		img_win;
-	t_img		img_minimap;
 	t_img		sprite;
 
 	char		**map;

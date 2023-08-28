@@ -4,29 +4,28 @@ MLX				= libmlx_Linux.a
 
 SRCS            =	ft_main.c \
 					event_handler.c \
+					parsing.c \
 					rendering.c \
-					ft_parsing_akadil.c \
+					parsing/parsing_args.c \
+					parsing/parsing_map.c \
+					parsing/parsing_textures.c \
+					parsing/ft_get_rows_fd.c \
+					parsing/ft_fill_matrix.c \
+					parsing/parsing_rgb.c \
+					parsing/utils/parsing_args_utils.c \
+					parsing/utils/parsing_utils.c \
+					parsing/utils/textures_utils.c \
+					init/init_game.c \
 					rendering/rendering_background.c \
 					rendering/rendering_projection.c \
 					rendering/rendering_minimap.c \
 					rendering/rendering_3d_object.c \
-					rendering/rendering_sprites.c \
 					rendering/utils/rendering_utils.c \
 					rendering/react_to_event/react_to_event.c \
 					rendering/react_to_event/react_to_move.c \
 					rendering/react_to_event/react_to_rotate.c \
-					# ft_preprocessing.c \
-					# preprocessing/ft_check_map_borders.c \
-					# preprocessing/ft_parsing_args.c \
-					# preprocessing/ft_check_and_set_rgb.c \
-					# preprocessing/ft_check_map_borders.c \
-					# preprocessing/ft_parsing_args.c \
-					# preprocessing/ft_parsing_map.c \
-					# preprocessing/ft_parsing_textures.c \
-					# preprocessing/initialization.c \
-					# preprocessing/utils/ft_parsing_args_utils.c \
-					# preprocessing/utils/ft_parsing_utils.c \
-					# parsing/ft_check_and_set_rgb.c 
+					rendering/draw_column/draw_column.c 
+					# ft_parsing_akadil.c
 
 SRCS_DIR		= ./srcs
 BUILD_DIR       = ./.build

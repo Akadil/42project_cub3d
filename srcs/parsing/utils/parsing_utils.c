@@ -3,49 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 18:09:38 by aseisenb          #+#    #+#             */
-/*   Updated: 2023/07/14 18:23:18 by aseisenb         ###   ########.fr       */
+/*   Updated: 2023/08/28 17:58:45 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "struct_list.h"
+#include <stdio.h>
 
-void	ft_unbound(t_list *row);
+void	ft_unbound(t_list **row);
 
-t_list	*ft_get_map_rows(t_list *rows)
+int	ft_get_map_rows(t_list **head, t_list **rows_map)
 {
+	t_list	*rows;
+
+	rows = *head;
 	while (rows)
 	{
 		if (((char *)rows->content)[0] == '1')
 			break ;
 		else if (((char *)rows->content)[0] == '0')
 			break ;
-		else if (((char *)rows->content)[0] == ' ')
+		else if (((char *)rows->content)[0] == 'N' && ((char *)rows->content)[1] != 'O')
 			break ;
-		else if (((char *)rows->content)[0] == 'N')
+		else if (((char *)rows->content)[0] == 'S' && ((char *)rows->content)[1] != 'O')
 			break ;
-		else if (((char *)rows->content)[0] == 'S')
+		else if (((char *)rows->content)[0] == 'W' && ((char *)rows->content)[1] != 'E')
 			break ;
-		else if (((char *)rows->content)[0] == 'W')
-			break ;
-		else if (((char *)rows->content)[0] == 'E')
+		else if (((char *)rows->content)[0] == 'E' && ((char *)rows->content)[1] != 'A')
 			break ;
 		rows = rows->next;
 	}
 	if (!rows)
-	{
-		ft_printf2("Map doesn't exist!\n");
-		return (ft_lstclear(rows, &free), NULL);
-	}
-	ft_unbound(rows);
-	return (rows);
+		return (ft_putstr_fd("Map doesn't exist!\n", 2), -1);
+	if (!rows->prev)
+		return (ft_putstr_fd("Configuration doesn't exist\n", 2), -1);
+	ft_unbound(&rows);
+	*rows_map = rows;
+	return (0);
 }
 
-void	ft_unbound(t_list *row)
+void	ft_unbound(t_list **row)
 {
-	row->prev->next = NULL;
-	row->prev = NULL;
+	(*row)->prev->next = NULL;
+	(*row)->prev = NULL;
 }
+

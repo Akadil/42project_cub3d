@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 11:01:35 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/21 14:51:31 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/25 17:20:48 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void	ft_transform(t_fdf *data, int i, int j)
 {
 	double	x_p;
 	double	y_p;
-	double	z_p;
 	double		x;
 	double		y;
 	double		z;
@@ -98,22 +97,11 @@ void	ft_transform(t_fdf *data, int i, int j)
 	x = (double)data->mtrx.node[i][j].x * data->param.grid;
 	y = (double)data->mtrx.node[i][j].y * data->param.grid;
 	z = (double)data->mtrx.node[i][j].z * data->param.attitude;
-
-	z_p = 0.0;
-	z_p -= x * sin(ft_rad(data->param.alpha));
-	z_p += y * sin(ft_rad(data->param.theta)) * cos(ft_rad(data->param.alpha));
-	z_p += z * cos(ft_rad(data->param.theta)) * cos(ft_rad(data->param.alpha));
-
 	x_p = 0.0;
 	x_p += x * cos(ft_rad(data->param.theta)) * cos(ft_rad(data->param.beta));
 	x_p -= z * sin(ft_rad(data->param.beta));
 	x_p -= y * sin(ft_rad(data->param.theta)) * cos(ft_rad(data->param.beta));
-	// if (z_p == 0.0)
-	// 	x_p = 2147483647;
-	// else
-	// 	x_p = x_p / z_p / 10;
 	x_p += data->param.x_offset;
-
 	y_p = 0.0;
 	y_p += x * sin(ft_rad(data->param.theta)) * cos(ft_rad(data->param.alpha));
 	y_p += y * cos(ft_rad(data->param.theta)) * cos(ft_rad(data->param.alpha));
@@ -122,14 +110,7 @@ void	ft_transform(t_fdf *data, int i, int j)
 	y_p -= y * sin(ft_rad(data->param.theta)) * sin(ft_rad(data->param.beta))
 		* sin(ft_rad(data->param.alpha));
 	y_p += z * cos(ft_rad(data->param.beta)) * sin(ft_rad(data->param.alpha));
-	// if (z_p == 0.0)
-	// 	y_p = 2147483647;
-	// else
-	// 	y_p =  y_p / z_p / 10;
 	y_p += data->param.y_offset;
-
-
-	// printf("%lf %lf %lf\n", x_p, y_p, z_p);
 	data->mtrx.node[i][j].x_p = (int)x_p;
 	data->mtrx.node[i][j].y_p = (int)y_p;
 }
@@ -257,33 +238,7 @@ int	create_rgb2(int r, int g, int b)
 
 void	ft_set_colors_sep(t_fdf *data, t_point *p1)
 {
-	int	num;
-
 	data->param.color += 1;
-	if (data->mtrx.node[p1->i][p1->j].color != -1)
-		p1->color = data->mtrx.node[p1->i][p1->j].color;
-	else
-	{
-		if (data->mtrx.z_max - data->mtrx.z_min == 0)
-			num = 255;
-		else
-			num = (float)(data->mtrx.node[p1->i][p1->j].z - data->mtrx.z_min)
-				/ (float)(data->mtrx.z_max - data->mtrx.z_min) * 255;
-		// if (data->param.color % 3 == 1 && num < 0.5 * 255)
-		// 	p1->color = create_rgb2(255, num * 2, 0);
-		// else if (data->param.color % 3 == 1 && num >= 0.5 * 255)
-		// 	p1->color = create_rgb2(255, 255, num);
-		// else if (data->param.color % 3 == 2 && num < 0.5 * 255)
-		// 	p1->color = create_rgb2(num * 2, 0, 255);
-		// else if (data->param.color % 3 == 2 && num >= 0.5 * 255)
-		// 	p1->color = create_rgb2(255, num, 255);
-		// else if (data->param.color % 3 == 0 && num < 0.5 * 255)
-		// 	p1->color = create_rgb2(0, 255, num * 2);
-		// else
-		// 	p1->color = create_rgb2(num, 255, 255);
-		if (data->param.color % 3 == 1)
-			p1->color = create_rgb2(num, 255, 255);
-	}
 	if (data->mtrx.node[p1->i][p1->j].z == data->mtrx.z_max)
 		p1->color = create_rgb2(255, 0, 0);
 	else

@@ -6,26 +6,29 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:14:59 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/17 12:54:53 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/28 20:14:41 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_main.h"
 #include "struct_data.h"
+#include "libft.h"
+
+void	ft_clean_textures(t_data *data);
+void	ft_clean(t_data *data);
+// void	ft_free_node(t_node **node);
+void	ft_free_node(t_fdf *trash);
+int	ft_handle_exit(t_data *data);
 
 int main(int argc, char **argv)
 {
     t_data	data;
 
-	/*	Parse and check the map	*/
-	// ft_parsing(argc, **argv, &data);
+	ft_memset(&data, '\0', sizeof(data));
+	ft_parsing(argc, argv, &data);
+	if (init_game(&data) != 0)
+		return (ft_free_node(&data.fdf), ft_clean_textures(&data), ft_free_map(data.map), -1);
 
-	/*	Initialize the map	*/
-	// init_game(&data, argv[1]);
-	
-	ft_parsing_akadil(argc, argv, &data);
-	// ft_parsing(argc, argv, &data);
-	/*	Start rendering	*/
 	mlx_mouse_move(data.mlx_ptr, data.win_ptr, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 	mlx_mouse_hide(data.mlx_ptr, data.win_ptr);
 	mlx_loop_hook(data.mlx_ptr, &ft_rendering, &data);
@@ -34,10 +37,26 @@ int main(int argc, char **argv)
 	// mlx_hook(data.win_ptr, 9, 1L << 21, enter_window, &data);
 	// mlx_hook(data.win_ptr, 10, 1L << 21, leave_window, &data);
 	mlx_hook(data.win_ptr, 6, 1L << 6, ft_mouse_move, &data);
-	// mlx_hook(data.win_ptr, DestroyNotify, 0, &ft_handle_exit, data);
+	mlx_hook(data.win_ptr, DestroyNotify, 0, &ft_handle_exit, &data);
 	mlx_loop(data.mlx_ptr);
 	
 	/*	Clean everything	*/
-	// ft_clean(data);
+	free(data.rays);
+	ft_free_node(&data.fdf);
+	ft_clean(&data);
+	ft_clean_textures(&data);
+	ft_free_map(data.map);
     return (0);
+}
+	// ft_parsing_akadil(argc, argv, &data);
+
+int	ft_handle_exit(t_data *data)
+{
+	free(data->rays);
+	ft_free_node(&data->fdf);
+	ft_clean(data);
+	ft_clean_textures(data);
+	ft_free_map(data->map);
+    exit(-1);
+	return (0);
 }

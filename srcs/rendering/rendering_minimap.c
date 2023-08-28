@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:10:02 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/21 12:28:17 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/25 16:39:46 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,28 +142,4 @@ void    ft_rendering_minimap(t_data *data)
         x++;
     }
     ft_draw_player(data);
-}
-
-void    ft_rendering_minimap_circle(t_data *data)
-{
-    int	i;
-	int	j;
-
-	i = (int)(WINDOW_HEIGHT / 4 * 3);
-	while (i < WINDOW_HEIGHT)
-	{
-		j = (int)(WINDOW_WIDTH / 4 * 3);
-		while (j < WINDOW_WIDTH)
-		{
-            if (pow(j - (int)(WINDOW_WIDTH / 4 * 3.5), 2) + pow(i - (int)(WINDOW_HEIGHT / 4 * 3.5), 2) < pow((double)(WINDOW_HEIGHT / 8) + 1, 2))
-            {
-                if (pow(j - (int)(WINDOW_WIDTH / 4 * 3.5), 2) + pow(i - (int)(WINDOW_HEIGHT / 4 * 3.5), 2) < pow((double)(WINDOW_HEIGHT / 8), 2))
-                    my_mlx_pixel_put(data, j, i, create_rgb(0, 0, 0));
-                else
-                    my_mlx_pixel_put(data, j, i, create_rgb(255, 255, 255));
-            }
-            j++;
-		}
-		i++;
-	}
 }

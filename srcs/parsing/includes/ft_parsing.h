@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 10:43:56 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/03 11:47:15 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/28 13:38:30 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "mlx.h"
-
-typedef enum s_tiletype
-{
-    EMPTY = '0',
-    WALL = '1',
-    N = 'N',
-    S = 'S',
-    E = 'E',
-    W = 'W',
-} t_tiletype;
 
 int		ft_parsing_args(int argc, char **argv, t_list **rows);
 t_list	*ft_get_map_rows(t_list **rows);
