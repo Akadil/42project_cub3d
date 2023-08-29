@@ -9,22 +9,32 @@ SRCS            =	ft_main.c \
 					parsing/parsing_args.c \
 					parsing/parsing_map.c \
 					parsing/parsing_textures.c \
-					parsing/ft_get_rows_fd.c \
-					parsing/ft_fill_matrix.c \
-					parsing/parsing_rgb.c \
+					parsing/parsing_fdf.c \
+					parsing/clean.c \
+					parsing/utils/ft_get_rows_fd.c \
+					parsing/utils/ft_fill_matrix.c \
+					parsing/utils/parsing_rgb.c \
 					parsing/utils/parsing_args_utils.c \
 					parsing/utils/parsing_utils.c \
 					parsing/utils/textures_utils.c \
+					parsing/utils/parsing_map_utils.c \
 					init/init_game.c \
+					init/init_data.c \
+					init/init_texture.c \
 					rendering/rendering_background.c \
 					rendering/rendering_projection.c \
 					rendering/rendering_minimap.c \
+					rendering/minimap_utils.c \
 					rendering/rendering_3d_object.c \
 					rendering/utils/rendering_utils.c \
 					rendering/react_to_event/react_to_event.c \
 					rendering/react_to_event/react_to_move.c \
 					rendering/react_to_event/react_to_rotate.c \
-					rendering/draw_column/draw_column.c 
+					rendering/draw_column/draw_column.c \
+					rendering/draw_column/get_colors.c \
+					rendering/3d_objects/draw_line.c \
+					rendering/3d_objects/set_parameters.c \
+					rendering/3d_objects/3d_utils.c 
 					# ft_parsing_akadil.c
 
 SRCS_DIR		= ./srcs
@@ -39,7 +49,7 @@ SRCS			:= $(addprefix $(SRCS_DIR)/, $(SRCS))
 
 CC				= cc
 CFLAGS          = -Wall -Werror -Wextra
-HFLAGS			= -I $(INCLUDES_DIR) -I $(MLX_DIR) -I ./srcs/rendering/includes
+HFLAGS			= -I $(INCLUDES_DIR) -I $(MLX_DIR) -I ./srcs/rendering/includes -I ./srcs/parsing/includes -I ./srcs/init/includes
 
 all						: ${NAME}
 

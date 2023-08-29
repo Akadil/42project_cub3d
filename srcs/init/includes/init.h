@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rendering_projection.h                             :+:      :+:    :+:   */
+/*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/13 14:50:30 by akalimol          #+#    #+#             */
-/*   Updated: 2023/08/29 18:10:27 by aseisenb         ###   ########.fr       */
+/*   Created: 2023/08/29 17:51:45 by aseisenb          #+#    #+#             */
+/*   Updated: 2023/08/29 17:56:56 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDERING_PROJECTION_H
-# define RENDERING_PROJECTION_H
+#ifndef INIT_H
+# define INIT_H
 
+# include "libft.h"
+# include "mlx.h"
 # include "struct_data.h"
-# include "struct_ray.h"
-# include <float.h>
+# include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
 
-double	ft_find_dist_perp(t_ray ray);
-void	ft_set_ray_vectors(int x, t_ray *ray, t_view *view, t_data *data);
-void	ft_set_direction_vector(float angle, t_view *view);
-void	ft_draw_column(t_data *data, t_ray *ray, int x);
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int		create_rgb(int r, int g, int b);
+int		init_game(t_data *data);
+int		ft_get_image_addr(t_data *data);
+int		ft_get_images(t_data *data);
+void	ft_init_player_view(t_data *data);
+void	ft_clean(t_data *data);
+int		ft_init_map(t_list *rows, char **map);
+void	ft_init_player(t_data *data, char p, int i, int j);
 
 #endif

@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   react_to_event.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:53:04 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/18 21:20:46 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/29 18:11:54 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct_data.h"
-#include <stdio.h>
-
-void	ft_move_forward(t_data *data);
-void	ft_move_backward(t_data *data);
-void	ft_move_right(t_data *data);
-void	ft_move_left(t_data *data);
-void    ft_rotate_right(t_data *data);
-void    ft_rotate_left(t_data *data);
+#include "rendering_utils.h"
 
 void	ft_react_to_event(t_data *data)
 {

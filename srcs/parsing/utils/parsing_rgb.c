@@ -6,23 +6,29 @@
 /*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:17:00 by aseisenb          #+#    #+#             */
-/*   Updated: 2023/07/14 18:36:52 by aseisenb         ###   ########.fr       */
+/*   Updated: 2023/08/29 14:47:08 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/ft_parsing.h"
-#include "libft.h"
-#include "struct_data.h"
-#include "struct_list.h"
-#include <stdlib.h>
+#include "parsing_textures.h"
 
-int	ft_rgb_end(char *str, int i, int k)
+int	check_valid_rgb(char *str)
 {
-	if (str[i] != ',' || k == 3)
-	{
-		if (k == 3 && str[i] == '\0')
-			return (0);
+	int	i;
+	int	value;
+
+	i = 0;
+	if (ft_check_rgbformat(str, i))
 		return (1);
+	while (i < 3)
+	{
+		value = ft_atoi(str);
+		if (value < 0 || value > 255)
+			return (1);
+		while (*str != ',' && *str)
+			str++;
+		str++;
+		i++;
 	}
 	return (0);
 }
@@ -53,30 +59,15 @@ int	ft_check_rgbformat(char *str, int i)
 	return (0);
 }
 
-int	check_valid_rgb(char *str)
+int	ft_rgb_end(char *str, int i, int k)
 {
-	int	i;
-	int	value;
-
-	i = 0;
-	if (ft_check_rgbformat(str, i))
-		return (1);
-	while (i < 3)
+	if (str[i] != ',' || k == 3)
 	{
-		value = ft_atoi(str);
-		if (value < 0 || value > 255)
-			return (1);
-		while (*str != ',' && *str)
-			str++;
-		str++;
-		i++;
+		if (k == 3 && str[i] == '\0')
+			return (0);
+		return (1);
 	}
 	return (0);
-}
-
-int	create_rgb_2(int r, int g, int b)
-{
-	return (r << 16 | g << 8 | b);
 }
 
 int	set_rgb_colors(char *str)
@@ -91,4 +82,9 @@ int	set_rgb_colors(char *str)
 	str = ft_strchr(str, ',') + 1;
 	b = ft_atoi(str);
 	return (create_rgb_2(r, g, b));
+}
+
+int	create_rgb_2(int r, int g, int b)
+{
+	return (r << 16 | g << 8 | b);
 }

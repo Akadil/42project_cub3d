@@ -3,18 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 18:09:38 by aseisenb          #+#    #+#             */
-/*   Updated: 2023/08/28 17:58:45 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/29 17:47:33 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_parsing.h"
 #include "libft.h"
 #include "struct_list.h"
 #include <stdio.h>
 
-void	ft_unbound(t_list **row);
+void	ft_unbound(t_list **row)
+{
+	(*row)->prev->next = NULL;
+	(*row)->prev = NULL;
+}
 
 int	ft_get_map_rows(t_list **head, t_list **rows_map)
 {
@@ -27,13 +32,17 @@ int	ft_get_map_rows(t_list **head, t_list **rows_map)
 			break ;
 		else if (((char *)rows->content)[0] == '0')
 			break ;
-		else if (((char *)rows->content)[0] == 'N' && ((char *)rows->content)[1] != 'O')
+		else if (((char *)rows->content)[0] == 'N'
+			&& ((char *)rows->content)[1] != 'O')
 			break ;
-		else if (((char *)rows->content)[0] == 'S' && ((char *)rows->content)[1] != 'O')
+		else if (((char *)rows->content)[0] == 'S'
+			&& ((char *)rows->content)[1] != 'O')
 			break ;
-		else if (((char *)rows->content)[0] == 'W' && ((char *)rows->content)[1] != 'E')
+		else if (((char *)rows->content)[0] == 'W'
+			&& ((char *)rows->content)[1] != 'E')
 			break ;
-		else if (((char *)rows->content)[0] == 'E' && ((char *)rows->content)[1] != 'A')
+		else if (((char *)rows->content)[0] == 'E'
+			&& ((char *)rows->content)[1] != 'A')
 			break ;
 		rows = rows->next;
 	}
@@ -45,10 +54,3 @@ int	ft_get_map_rows(t_list **head, t_list **rows_map)
 	*rows_map = rows;
 	return (0);
 }
-
-void	ft_unbound(t_list **row)
-{
-	(*row)->prev->next = NULL;
-	(*row)->prev = NULL;
-}
-

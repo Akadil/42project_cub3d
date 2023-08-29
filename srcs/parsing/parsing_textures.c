@@ -3,28 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_textures.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:17:48 by aseisenb          #+#    #+#             */
-/*   Updated: 2023/08/28 18:21:47 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/29 14:44:00 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/parsing_textures.h"
 
-#include "struct_data.h"
-#include "struct_list.h"
-#include <fcntl.h>
-#include "libft.h"
-
-int	ft_is_wall(t_data *data, char *content);
-int	ft_is_ceil_floor(t_data *data, char *content);
-void	ft_assign_names_wall(t_data *data, t_list *row);
-void	ft_assign_names_floor_ceil(t_data *data, char *content);
-int	check_valid_rgb(char *str);
-int	set_rgb_colors(char *str);
-int	ft_check_file_existence_wall(t_data *data);
-int	ft_check_texture_names(t_list *rows, t_data *data);
 /**
  * @brief Check the textures
  */
@@ -37,7 +24,6 @@ int	ft_parsing_textures(t_list *rows, t_data *data)
 	return (0);
 }
 
-#include <stdio.h>
 /**
  * @brief Check texture names
  */

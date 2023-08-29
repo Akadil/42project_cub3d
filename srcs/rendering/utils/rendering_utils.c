@@ -1,15 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_rendering_utils.c                               :+:      :+:    :+:   */
+/*   rendering_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:05:56 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/11 12:06:26 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/29 18:41:39 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "rendering_utils.h"
 #include "struct_data.h"
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -20,7 +21,8 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	if (x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT)
 		return ;
 	i = data->img_win.bpp - 8;
-	pixel = data->img_win.addr + (y * data->img_win.line_len + x * (data->img_win.bpp / 8));
+	pixel = data->img_win.addr + (y * data->img_win.line_len + x
+			* (data->img_win.bpp / 8));
 	while (i >= 0)
 	{
 		if (data->img_win.endian != 0)

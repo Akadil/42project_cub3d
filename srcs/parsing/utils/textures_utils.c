@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   textures_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 18:26:03 by aseisenb          #+#    #+#             */
-/*   Updated: 2023/08/28 18:45:08 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/29 14:35:01 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "struct_data.h"
-#include "struct_list.h"
-
-int	ft_is_ceil_floor(t_data *data, char *content);
-void	ft_assign_names_wall(t_data *data, char *content);
-void	ft_assign_names_floor_ceil(t_data *data, char *content);
+#include "parsing_textures.h"
 
 int	ft_is_wall(t_data *data, char *content)
 {
@@ -36,23 +30,6 @@ int	ft_is_wall(t_data *data, char *content)
 		return (0);
 	else if (ft_strncmp(content, "EA ", 3) == 0)
 		return (0);
-	return (-1);
-}
-
-int	ft_is_ceil_floor(t_data *data, char *content)
-{
-	if (ft_strncmp(content, "C ", 2) == 0)
-	{
-		if (data->wall.ceil.name)
-			return (-1);
-		return (0);
-	}
-	else if (!ft_strncmp(content, "F ", 2))
-	{
-		if (data->wall.floor.name)
-			return (-1);
-		return (0);
-	}
 	return (-1);
 }
 
@@ -78,6 +55,23 @@ void	ft_assign_names_wall(t_data *data, char *content)
 		data->wall.east.name = ft_strdup(content + 3);
 		data->wall.east.name[ft_strlen(data->wall.east.name) - 1] = '\0';
 	}
+}
+
+int	ft_is_ceil_floor(t_data *data, char *content)
+{
+	if (ft_strncmp(content, "C ", 2) == 0)
+	{
+		if (data->wall.ceil.name)
+			return (-1);
+		return (0);
+	}
+	else if (!ft_strncmp(content, "F ", 2))
+	{
+		if (data->wall.floor.name)
+			return (-1);
+		return (0);
+	}
+	return (-1);
 }
 
 void	ft_assign_names_floor_ceil(t_data *data, char *content)

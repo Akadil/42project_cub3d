@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_background.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:05:03 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/11 12:14:57 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/29 17:36:31 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct_data.h"
 #include "includes/rendering_utils.h"
+#include "struct_data.h"
 
 void	ft_render_background(t_data *data, int color)
 {
@@ -34,4 +34,3 @@ void	ft_render_background(t_data *data, int color)
 		i++;
 	}
 }
-
