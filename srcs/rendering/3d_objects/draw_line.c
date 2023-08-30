@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aseisenb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:22:45 by aseisenb          #+#    #+#             */
-/*   Updated: 2023/08/29 19:22:47 by aseisenb         ###   ########.fr       */
+/*   Updated: 2023/08/30 13:48:34 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,36 @@ void	ft_draw_line(t_data *data, int i, int j, int direct, int x_offset)
 		p2.y_p = data->fdf.mtrx.node[i + 1][j].y_p;
 	}
 	bresenhams(data, p1, p2, x_offset);
+	if (direct == 1)
+	{
+		p2.i = i;
+		p2.j = j + 1;
+		p2.x_p = data->fdf.mtrx.node[i][j + 1].x_p + 1;
+		p2.y_p = data->fdf.mtrx.node[i][j + 1].y_p + 1;
+	}
+	else
+	{
+		p2.i = i + 1;
+		p2.j = j;
+		p2.x_p = data->fdf.mtrx.node[i + 1][j].x_p + 1;
+		p2.y_p = data->fdf.mtrx.node[i + 1][j].y_p + 1;
+	}
+	bresenhams(data, p1, p2, x_offset);
+	// if (direct == 1)
+	// {
+	// 	p2.i = i;
+	// 	p2.j = j + 1;
+	// 	p2.x_p = data->fdf.mtrx.node[i][j + 1].x_p - 1;
+	// 	p2.y_p = data->fdf.mtrx.node[i][j + 1].y_p - 1;
+	// }
+	// else
+	// {
+	// 	p2.i = i + 1;
+	// 	p2.j = j;
+	// 	p2.x_p = data->fdf.mtrx.node[i + 1][j].x_p - 1;
+	// 	p2.y_p = data->fdf.mtrx.node[i + 1][j].y_p - 1;
+	// }
+	// bresenhams(data, p1, p2, x_offset);
 }
 
 void	bresenhams(t_data *data, t_point p1, t_point p2, int x_offset)

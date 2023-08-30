@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:09:38 by akalimol          #+#    #+#             */
-/*   Updated: 2023/08/29 19:16:26 by aseisenb         ###   ########.fr       */
+/*   Updated: 2023/08/30 13:44:14 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,20 @@
 # include <stdio.h>
 # include <stdlib.h>
 
+typedef struct s_3d
+{
+	t_vector	sprite;
+	t_vector	sprite_p;
+	double		inv_det;
+	int			screen_x;
+	int			sprite_height;
+	int			sprite_width;
+	int			draw_start_y;
+	int			draw_start_x;
+	int			draw_end_x;
+	int			draw_end_y;
+}	t_3d;   
+
 void	ft_react_to_event(t_data *data);
 void	ft_render_background(t_data *data, int color);
 void	ft_render_projection(t_data *data);
@@ -29,7 +43,9 @@ void	ft_rendering_minimap(t_data *data);
 void	ft_rendering_minimap_circle(t_data *data);
 void	ft_rendering_3d_object(t_data *data);
 void	ft_transform(t_fdf *data, int i, int j);
-void	ft_set_params(t_data *my_data, int width, int height);
+void	ft_set_fdf_params(t_data *my_data, t_3d *object_3d);
+void	ft_set_object_in_plane(t_data *data, t_3d *object_3d);
+int		ft_set_3dobject_params(t_data *data, t_3d *object_3d);
 void	ft_render_3d(t_data *data, int x_offset);
 void	ft_set_x_y(t_data *data);
 void	ft_transform(t_fdf *data, int i, int j);
