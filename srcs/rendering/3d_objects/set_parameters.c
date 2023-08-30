@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_parameters.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:23:02 by aseisenb          #+#    #+#             */
-/*   Updated: 2023/08/30 13:50:04 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/30 15:48:50 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ void	ft_set_fdf_params(t_data *my_data, t_3d *object_3d)
 	width = object_3d->draw_end_x - object_3d->draw_start_x;
 	height = object_3d->draw_end_y - object_3d->draw_start_y;
 	my_data->fdf.param.alpha = 90 - 30 * (1.0 / (fabs(my_data->fdf.pos_p.y)
-			+ 1));
+				+ 1));
 	my_data->fdf.param.beta = 180;
-	// my_data->fdf.param.theta = calculate_angle(my_data->fdf.pos.x,
-	// 	my_data->fdf.pos.y);
 	my_data->fdf.param.theta += 1;
 	if (my_data->fdf.param.theta < 0)
 		my_data->fdf.param.theta += 360;
@@ -43,19 +41,19 @@ void	ft_set_fdf_params(t_data *my_data, t_3d *object_3d)
 double	calculate_angle(double x, double y)
 {
 	double	my_angle;
-	double	angleDegrees;
+	double	angle_degrees;
 
 	my_angle = atan2(y, x);
-	angleDegrees = my_angle * (180.0 / PI);
-	if (angleDegrees < 0)
+	angle_degrees = my_angle * (180.0 / PI);
+	if (angle_degrees < 0)
 	{
-		angleDegrees += 360.0;
+		angle_degrees += 360.0;
 	}
-	if (angleDegrees > 359)
+	if (angle_degrees > 359)
 	{
-		angleDegrees -= 360.0;
+		angle_degrees -= 360.0;
 	}
-	return (angleDegrees);
+	return (angle_degrees);
 }
 
 int	ft_find_grid(t_fdf *my_data, int width)

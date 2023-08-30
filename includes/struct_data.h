@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_data.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:19:18 by akalimol          #+#    #+#             */
-/*   Updated: 2023/08/30 14:58:44 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/30 16:00:59 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,11 @@ typedef struct s_draw
 	int				pos_color;
 	int				r;
 	int				g;
-	int				b;
+	int				b;	
+	int				i_beg;
+	int				i_end;
+	int				j_beg;
+	int				j_end;
 }					t_draw;
 
 #endif

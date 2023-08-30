@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aseisenb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 17:53:22 by aseisenb          #+#    #+#             */
-/*   Updated: 2023/08/29 17:53:24 by aseisenb         ###   ########.fr       */
+/*   Updated: 2023/08/30 18:19:19 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing_map.h"
 
-/** */
 int	ft_find_largest_width(t_list *rows)
 {
 	int	largest;
@@ -21,8 +20,8 @@ int	ft_find_largest_width(t_list *rows)
 	largest = -1;
 	while (rows)
 	{
-		len = ft_strlen((char *)rows->content);
-		if (((char *)rows->content)[len - 1] == '\n')
+		len = ft_strlen(rows->content);
+		if ((rows->content)[len - 1] == '\n')
 			len--;
 		if (len > largest)
 			largest = len;

@@ -6,7 +6,7 @@
 /*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 17:51:03 by aseisenb          #+#    #+#             */
-/*   Updated: 2023/08/29 19:21:28 by aseisenb         ###   ########.fr       */
+/*   Updated: 2023/08/30 18:00:09 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	ft_init_map(t_list *rows, char **map)
 		if (!map[i])
 			return (-1);
 		j = 0;
-		while (((char *)rows->content)[j] && ((char *)rows->content)[j] != '\n')
+		while ((rows->content)[j] && (rows->content)[j] != '\n')
 		{
-			map[i][j] = ((char *)rows->content)[j];
+			map[i][j] = (rows->content)[j];
 			j++;
 		}
 		ft_memset(map[i] + j, ' ', largest_width - j);

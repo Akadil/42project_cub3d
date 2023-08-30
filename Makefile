@@ -34,7 +34,8 @@ SRCS            =	ft_main.c \
 					rendering/draw_column/get_colors.c \
 					rendering/3d_objects/draw_line.c \
 					rendering/3d_objects/set_parameters.c \
-					rendering/3d_objects/3d_utils.c 
+					rendering/3d_objects/3d_utils.c \
+					rendering/3d_objects/3d_utils2.c  
 					# ft_parsing_akadil.c
 
 SRCS_DIR		= ./srcs

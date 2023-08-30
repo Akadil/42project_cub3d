@@ -6,7 +6,7 @@
 /*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:17:48 by aseisenb          #+#    #+#             */
-/*   Updated: 2023/08/29 14:44:00 by aseisenb         ###   ########.fr       */
+/*   Updated: 2023/08/30 18:01:07 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_check_texture_names(t_list *rows, t_data *data)
 		if (ft_is_wall(data, rows->content) == 0)
 			ft_assign_names_wall(data, rows->content);
 		else if (ft_is_ceil_floor(data, rows->content) == 0)
-			ft_assign_names_floor_ceil(data, (char *)rows->content);
+			ft_assign_names_floor_ceil(data, rows->content);
 		else
 			return (-1);
 		rows = rows->next;

@@ -6,7 +6,7 @@
 /*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 15:17:41 by akalimol          #+#    #+#             */
-/*   Updated: 2023/08/29 18:37:48 by aseisenb         ###   ########.fr       */
+/*   Updated: 2023/08/30 15:40:21 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,10 @@ void	ft_move_forward(t_data *data)
 	x_pos = (int)(data->player.x);
 	y_pos = (int)(data->player.y);
 	x_pos_new = data->player.x + data->view.dir.x * SPEED;
-	if (data->map[y_pos][(int)(x_pos_new)] != '1' /*
-		&& data->map[y_pos][(int)ceil(x_pos_new)] != '1'*/)
+	if (data->map[y_pos][(int)(x_pos_new)] != '1')
 		data->player.x = x_pos_new;
 	y_pos_new = data->player.y + data->view.dir.y * SPEED;
-	if (data->map[(int)(y_pos_new)][x_pos] != '1' /*
-		&& data->map[(int)ceil(y_pos_new)][x_pos] != '1'*/)
+	if (data->map[(int)(y_pos_new)][x_pos] != '1')
 		data->player.y = y_pos_new;
 }
 

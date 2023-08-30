@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_projection.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:52:13 by akalimol          #+#    #+#             */
-/*   Updated: 2023/08/30 15:18:55 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/30 17:36:55 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,10 @@ void	ft_calculate_side_distances(t_data *data, t_ray *ray);
  */
 void	ft_set_ray_vectors(int x, t_ray *ray, t_view *view, t_data *data)
 {
-	ray->dir.x = view->dir.x + (double)view->plane.x * (2.0 * x / (double)WINDOW_WIDTH - 1);
-	ray->dir.y = view->dir.y + (double)view->plane.y * (2.0 * x / (double)WINDOW_WIDTH - 1);
+	ray->dir.x = view->dir.x + (double)view->plane.x
+		* (2.0 * x / (double)WINDOW_WIDTH - 1);
+	ray->dir.y = view->dir.y + (double)view->plane.y
+		* (2.0 * x / (double)WINDOW_WIDTH - 1);
 	ray->map.x = (int)data->player.x;
 	ray->map.y = (int)data->player.y;
 	if (ray->dir.x == 0.0)

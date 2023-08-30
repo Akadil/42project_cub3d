@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_minimap.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:10:02 by akalimol          #+#    #+#             */
-/*   Updated: 2023/08/30 15:12:22 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/30 16:03:20 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,29 +44,37 @@ void	bresenhams2(t_data *data, t_vector *p1, t_vector *p2)
 
 void	ft_many_bresenhams(t_data *data, t_vector map_ray, t_vector *player);
 
+typedef struct s_draw_p
+{
+	int	i_beg;
+	int	i_end;
+	int	j_beg;
+	int	j_end;
+}		t_draw_p;
+
 void	ft_draw_player(t_data *data)
 {
 	t_vector	map_ray;
 	t_vector	player;
-	int			i_beg;
-	int			i_end;
-	int			j_beg;
-	int			j_end;
+	t_draw		draw;
 
 	map_ray.x = 0.0;
 	map_ray.y = 0.0;
-	i_beg = (double)WINDOW_HEIGHT / 4.0 * 3.0 + data->player.y * 5.0 - 1;
-	i_end = (double)WINDOW_HEIGHT / 4.0 * 3 + data->player.y * 5.0 + 1;
-	while (i_beg < i_end)
+	draw.i_beg = (double)WINDOW_HEIGHT / 4.0 * 3.0 + data->player.y * 5.0 - 1;
+	draw.i_end = (double)WINDOW_HEIGHT / 4.0 * 3 + data->player.y * 5.0 + 1;
+	while (draw.i_beg < draw.i_end)
 	{
-		j_beg = (double)WINDOW_WIDTH / 4.0 * 3.0 + data->player.x * 5.0 - 1;
-		j_end = (double)WINDOW_WIDTH / 4.0 * 3.0 + data->player.x * 5.0 + 1;
-		while (j_beg < j_end)
+		draw.j_beg = (double)WINDOW_WIDTH / 4.0 * 3.0 + data->player.x * 5.0
+			- 1;
+		draw.j_end = (double)WINDOW_WIDTH / 4.0 * 3.0 + data->player.x * 5.0
+			+ 1;
+		while (draw.j_beg < draw.j_end)
 		{
-			my_mlx_pixel_put(data, j_beg, i_beg, create_rgb(0, 255, 0));
-			j_beg++;
+			my_mlx_pixel_put(data, draw.j_beg, draw.i_beg, create_rgb(0, 255,
+					0));
+			draw.j_beg++;
 		}
-		i_beg++;
+		draw.i_beg++;
 	}
 	player.y = (double)WINDOW_HEIGHT / 4.0 * 3.0 + data->player.y * 5.0;
 	player.x = (double)WINDOW_WIDTH / 4.0 * 3.0 + data->player.x * 5.0;
@@ -111,7 +119,9 @@ void	ft_rendering_minimap(t_data *data)
 		y = 0;
 		while (data->map[x][y])
 		{
-			if (data->map[x][y] == '0' || data->map[x][y] == 'N' || data->map[x][y] == 'S' || data->map[x][y] == 'E' || data->map[x][y] == 'W')
+			if (data->map[x][y] == '0' || data->map[x][y] == 'N'
+				|| data->map[x][y] == 'S' || data->map[x][y] == 'E'
+				|| data->map[x][y] == 'W')
 				ft_draw_rectangle(data, x, y, create_rgb(0, 0, 255));
 			y++;
 		}

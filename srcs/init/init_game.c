@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:14:37 by akalimol          #+#    #+#             */
-/*   Updated: 2023/08/30 15:28:53 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/30 18:21:46 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ int	init_game(t_data *data)
 			&img->line_len, &img->endian);
 	if (!data->img_win.addr)
 		return (ft_clean(data), -1);
+	init_game2(data);
+	return (0);
+}
+
+int	init_game2(t_data *data)
+{
 	ft_init_player_view(data);
 	if (ft_get_images(data) != 0)
 		return (ft_putstr_fd("Image failed\n", 2), ft_clean(data), -1);
@@ -51,19 +57,13 @@ int	init_game(t_data *data)
 void	ft_clean(t_data *data)
 {
 	if (data->wall.north.mlx_img)
-	{
 		mlx_destroy_image(data->mlx_ptr, data->wall.north.mlx_img);
-		// free(data->wall.north.mlx_img);
-	}
 	if (data->wall.south.mlx_img)
 		mlx_destroy_image(data->mlx_ptr, data->wall.south.mlx_img);
-	// free(data->wall.south.mlx_img);
 	if (data->wall.west.mlx_img)
 		mlx_destroy_image(data->mlx_ptr, data->wall.west.mlx_img);
-	// free(data->wall.west.mlx_img);
 	if (data->wall.east.mlx_img)
 		mlx_destroy_image(data->mlx_ptr, data->wall.east.mlx_img);
-	// free(data->wall.east.mlx_img);
 	if (data->img_win.mlx_img)
 		mlx_destroy_image(data->mlx_ptr, data->img_win.mlx_img);
 	if (data->win_ptr)

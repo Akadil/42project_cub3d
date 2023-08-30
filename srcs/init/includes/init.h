@@ -6,7 +6,7 @@
 /*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 17:51:45 by aseisenb          #+#    #+#             */
-/*   Updated: 2023/08/29 17:56:56 by aseisenb         ###   ########.fr       */
+/*   Updated: 2023/08/30 18:00:13 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdlib.h>
 
 int		init_game(t_data *data);
+int		init_game2(t_data *data);
 int		ft_get_image_addr(t_data *data);
 int		ft_get_images(t_data *data);
 void	ft_init_player_view(t_data *data);

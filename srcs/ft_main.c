@@ -6,7 +6,7 @@
 /*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:14:59 by akalimol          #+#    #+#             */
-/*   Updated: 2023/08/29 18:27:10 by aseisenb         ###   ########.fr       */
+/*   Updated: 2023/08/30 17:13:13 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(data.mlx_ptr, &ft_rendering, &data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &ft_key_press, &data);
 	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, &ft_key_release, &data);
-	// mlx_hook(data.win_ptr, 9, 1L << 21, enter_window, &data);
-	// mlx_hook(data.win_ptr, 10, 1L << 21, leave_window, &data);
 	mlx_hook(data.win_ptr, 6, 1L << 6, ft_mouse_move, &data);
 	mlx_hook(data.win_ptr, DestroyNotify, 0, &ft_handle_exit, &data);
 	mlx_loop(data.mlx_ptr);

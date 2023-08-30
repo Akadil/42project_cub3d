@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3d_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aseisenb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:22:37 by aseisenb          #+#    #+#             */
-/*   Updated: 2023/08/29 19:22:39 by aseisenb         ###   ########.fr       */
+/*   Updated: 2023/08/30 15:46:47 by aseisenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,10 @@ void	ft_set_colors_sep(t_fdf *data, t_point *p1)
 int	create_rgb2(int r, int g, int b)
 {
 	return (r << 16 | g << 8 | b);
+}
+
+void	ft_set_colors(t_fdf *data, t_point *p1, t_point *p2)
+{
+	ft_set_colors_sep(data, p1);
+	ft_set_colors_sep(data, p2);
 }
