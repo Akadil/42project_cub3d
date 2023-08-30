@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_colors.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:08:40 by aseisenb          #+#    #+#             */
-/*   Updated: 2023/08/29 18:10:14 by aseisenb         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:45:03 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ double	ft_calculate_the_ratio(t_draw *draw, int i)
 {
 	double	result;
 
-	result = (double)(2 * (draw->draw_start + i) + draw->lineHeight - WINDOW_HEIGHT);
-	result = result / 2 / draw->lineHeight;
+	result = (double)(2 * (draw->draw_start + i) + draw->line_height - WINDOW_HEIGHT);
+	result = result / 2 / draw->line_height;
 	return (result);
 }

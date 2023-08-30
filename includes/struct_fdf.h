@@ -6,12 +6,12 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 11:57:14 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/18 16:34:31 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:42:59 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_DATA_H
-# define FT_DATA_H
+#ifndef STRUCT_FDF_H
+# define STRUCT_FDF_H
 
 // # define WINDOW_WIDTH 500
 // # define WINDOW_HEIGHT 500

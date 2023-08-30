@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:09:38 by akalimol          #+#    #+#             */
-/*   Updated: 2023/08/30 13:44:14 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:59:22 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,16 @@ void	ft_render_3d(t_data *data, int x_offset);
 void	ft_set_x_y(t_data *data);
 void	ft_transform(t_fdf *data, int i, int j);
 float	ft_rad(int angle);
-void	ft_draw_line(t_data *data, int i, int j, int direct, int x_offset);
+// void	ft_draw_line(t_data *data, int i, int j, int direct, int x_offset);
+void	ft_draw_line_1(t_data *data, int i, int j, int x_offset);
+void	ft_draw_line_0(t_data *data, int i, int j, int x_offset);
 void	bresenhams(t_data *data, t_point p1, t_point p2, int x_offset);
 void	ft_set_colors(t_fdf *data, t_point *p1, t_point *p2);
 void	ft_set_colors_sep(t_fdf *data, t_point *p1);
 int		create_rgb2(int r, int g, int b);
 int		ft_abs(int a, int b);
 int		ft_slope(int a, int b);
-void	ft_pixel(t_data *data, int x, int y, int color, int x_offset);
+void	ft_pixel(t_data *data, int x, int y, int color);
 int		ft_color(t_point p1, t_point p2, t_point p);
 double	calculate_angle(double x, double y);
 int		ft_find_grid(t_fdf *my_data, int width);

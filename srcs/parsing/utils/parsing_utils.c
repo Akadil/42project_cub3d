@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 18:09:38 by aseisenb          #+#    #+#             */
-/*   Updated: 2023/08/29 17:47:33 by aseisenb         ###   ########.fr       */
+/*   Updated: 2023/08/30 15:24:29 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,13 @@ int	ft_get_map_rows(t_list **head, t_list **rows_map)
 			break ;
 		else if (((char *)rows->content)[0] == '0')
 			break ;
-		else if (((char *)rows->content)[0] == 'N'
-			&& ((char *)rows->content)[1] != 'O')
+		else if (((char *)rows->content)[0] == 'N' && ((char *)rows->content)[1] != 'O')
 			break ;
-		else if (((char *)rows->content)[0] == 'S'
-			&& ((char *)rows->content)[1] != 'O')
+		else if (((char *)rows->content)[0] == 'S' && ((char *)rows->content)[1] != 'O')
 			break ;
-		else if (((char *)rows->content)[0] == 'W'
-			&& ((char *)rows->content)[1] != 'E')
+		else if (((char *)rows->content)[0] == 'W' && ((char *)rows->content)[1] != 'E')
 			break ;
-		else if (((char *)rows->content)[0] == 'E'
-			&& ((char *)rows->content)[1] != 'A')
+		else if (((char *)rows->content)[0] == 'E' && ((char *)rows->content)[1] != 'A')
 			break ;
 		rows = rows->next;
 	}

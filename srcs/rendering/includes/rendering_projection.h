@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_projection.h                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:50:30 by akalimol          #+#    #+#             */
-/*   Updated: 2023/08/29 18:10:27 by aseisenb         ###   ########.fr       */
+/*   Updated: 2023/08/30 15:17:41 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-double	ft_find_dist_perp(t_ray ray);
+double	ft_find_dist_perp(t_ray *ray);
 void	ft_set_ray_vectors(int x, t_ray *ray, t_view *view, t_data *data);
 void	ft_set_direction_vector(float angle, t_view *view);
 void	ft_draw_column(t_data *data, t_ray *ray, int x);

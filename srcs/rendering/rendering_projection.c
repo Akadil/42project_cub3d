@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_projection.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:52:13 by akalimol          #+#    #+#             */
-/*   Updated: 2023/08/29 18:43:54 by aseisenb         ###   ########.fr       */
+/*   Updated: 2023/08/30 15:18:55 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,21 @@ void	ft_render_projection(t_data *data)
 				ray.side = 1;
 			}
 		}
-		ray.distance_perp = ft_find_dist_perp(ray);
-		data->rays[x] = ray.distance_perp;
+		data->rays[x] = ft_find_dist_perp(&ray);
 		ft_draw_column(data, &ray, x++);
 	}
 }
 
-double	ft_find_dist_perp(t_ray ray)
+double	ft_find_dist_perp(t_ray *ray)
 {
-	if (ray.side == 0)
-		return (ray.side_dist.x - ray.delta_dist.x);
+	double	perp_wall_dist;
+
+	if (ray->side == 0)
+		perp_wall_dist = ray->side_dist.x - ray->delta_dist.x;
 	else
-		return (ray.side_dist.y - ray.delta_dist.y);
+		perp_wall_dist = ray->side_dist.y - ray->delta_dist.y;
+	ray->distance_perp = perp_wall_dist;
+	return (perp_wall_dist);
 }
 
 void	ft_calculate_side_distances(t_data *data, t_ray *ray);

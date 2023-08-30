@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_column.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 16:23:47 by akalimol          #+#    #+#             */
-/*   Updated: 2023/08/29 18:05:07 by aseisenb         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:44:54 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	ft_draw_column(t_data *data, t_ray *ray, int x)
 {
 	t_draw	draw;
 
-	draw.lineHeight = (int)(WINDOW_HEIGHT / ray->distance_perp);
-	draw.draw_start = -1 * draw.lineHeight / 2 + WINDOW_HEIGHT / 2;
+	draw.line_height = (int)(WINDOW_HEIGHT / ray->distance_perp);
+	draw.draw_start = -1 * draw.line_height / 2 + WINDOW_HEIGHT / 2;
 	if (draw.draw_start < 0)
 		draw.draw_start = 0;
-	draw.draw_end = draw.lineHeight / 2 + WINDOW_HEIGHT / 2;
+	draw.draw_end = draw.line_height / 2 + WINDOW_HEIGHT / 2;
 	if (draw.draw_end >= WINDOW_HEIGHT)
 		draw.draw_end = WINDOW_HEIGHT - 1;
 	draw.x = x;

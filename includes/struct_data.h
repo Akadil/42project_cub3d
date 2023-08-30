@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_data.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:19:18 by akalimol          #+#    #+#             */
-/*   Updated: 2023/08/29 19:25:33 by aseisenb         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:58:44 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ typedef struct s_data
 	t_vector		sprite_pos;
 	t_view			view;
 	double			angle;
+	int				x_offset;
 }					t_data;
 
 typedef struct s_point
@@ -158,7 +159,7 @@ typedef struct s_point
 
 typedef struct s_draw
 {
-	int				lineHeight;
+	int				line_height;
 	int				draw_start;
 	int				draw_end;
 

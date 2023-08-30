@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aseisenb <aseisenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:14:37 by akalimol          #+#    #+#             */
-/*   Updated: 2023/08/29 17:41:53 by aseisenb         ###   ########.fr       */
+/*   Updated: 2023/08/30 15:28:53 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,13 @@ int	init_game(t_data *data)
 	data->event.move_fw = false;
 	data->event.move_bw = false;
 	data->rays = (double *)ft_calloc(sizeof(double), WINDOW_WIDTH);
+	if (!data->rays)
+		return (ft_putstr_fd("Rays failed\n", 2), ft_clean(data), -1);
 	return (0);
 }
 
 void	ft_clean(t_data *data)
 {
-	// if(data->wall.north.addr)
-	//     free(data->wall.north.addr);
-	// if(data->wall.south.addr)
-	//     free(data->wall.south.addr);
-	// if(data->wall.south.addr)
-	//     free(data->wall.south.addr);
-	// if(data->wall.south.addr)
-	//     free(data->wall.south.addr);
 	if (data->wall.north.mlx_img)
 	{
 		mlx_destroy_image(data->mlx_ptr, data->wall.north.mlx_img);

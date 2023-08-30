@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 11:01:35 by akalimol          #+#    #+#             */
-/*   Updated: 2023/08/30 13:43:54 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:54:08 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,12 @@ int		ft_set_3dobject_params(t_data *data, t_3d *object_3d)
 
 	sprite.x = data->sprite_pos.x - data->player.x;
 	sprite.y = data->sprite_pos.y - data->player.y;
-	inv_det = 1.0 / (data->view.plane.x * data->view.dir.y - data->view.plane.y * data->view.dir.x);
-	sprite_p.x = inv_det * (data->view.dir.y * sprite.x - data->view.dir.x * sprite.y);
-	sprite_p.y = inv_det * (-1 * data->view.plane.y * sprite.x + data->view.plane.x * sprite.y);
+	inv_det = 1.0 / (data->view.plane.x * data->view.dir.y - data->view.plane.y 
+							* data->view.dir.x);
+	sprite_p.x = inv_det * (data->view.dir.y * sprite.x - data->view.dir.x * 
+							sprite.y);
+	sprite_p.y = inv_det * (-1 * data->view.plane.y * sprite.x + 
+							data->view.plane.x * sprite.y);
 	if (sprite_p.y <= 1)
 		return (-1);
 	screen_x = (double)WINDOW_WIDTH / 2 * (1.0 + sprite_p.x / sprite_p.y);
@@ -74,9 +77,9 @@ void	ft_render_3d(t_data *data, int x_offset)
 		while (j < data->fdf.mtrx.width)
 		{
 			if (j + 1 != data->fdf.mtrx.width)
-				ft_draw_line(data, i, j, 1, x_offset);
+				ft_draw_line_1(data, i, j, x_offset);
 			if (i + 1 != data->fdf.mtrx.height)
-				ft_draw_line(data, i, j, 0, x_offset);
+				ft_draw_line_0(data, i, j, x_offset);
 			j++;
 		}
 		i++;
